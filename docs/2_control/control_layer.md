@@ -9,8 +9,8 @@ This document defines the **Control Layer** of the stack.
 
 It assumes:
 
-- `execution_primitives.md`
-- `typing_discipline.md`
+- `0_core/execution_primitives.md`
+- `1_structural/typing_discipline.md`
 
 It does **not** introduce new physics.
 It does **not** introduce values.
