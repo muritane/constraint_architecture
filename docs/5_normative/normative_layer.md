@@ -1,5 +1,6 @@
-# Normative Layer  
-## Goal Selection, Value Constraints, and Legitimacy Above Execution
+# Normative Layer
+
+## Admissible Action Constraints and Goal Selection Above Physical Execution
 
 ---
 
@@ -9,395 +10,454 @@ This document defines the **Normative Layer** of the stack.
 
 It assumes:
 
-- `0_core/execution_primitives.md`
-- `1_structural/typing_discipline.md`
-- `2_control/control_layer.md`
-- `3_cognitive/cognitive_layer.md`
-- `4_domain/*`
+* Execution Primitives (E1–E8)
+* Structural Typing Discipline
+* Control Layer
+* Cognitive Layer
+* Domain Instantiations
 
-This layer does **not** override physics.  
-It does **not** override topology.  
-It does **not** override viability.
+It does not redefine physics.
+It does not override resource limits.
+It does not eliminate irreversibility.
 
-It defines:
+It specifies how:
 
-> How goals, values, legitimacy, and meaning become binding constraints  
-> **without pretending to be physics.**
+* Goals,
+* Prohibitions,
+* Trade-offs,
+* Value commitments,
 
-If:
+become additional constraints on admissible trajectories.
 
-- Execution defines what must be true to run,
-- Control defines how to remain stable,
-- Cognition defines how to choose under infinity,
-- Domain layers instantiate structure,
-
-then the Normative Layer defines:
-
-> What is chosen to be optimized, protected, prohibited, or preserved.
+Norms restrict what is permitted.
+They do not change what is physically possible.
 
 ---
 
-# 1. Scope
+# 1. Position in Stack
 
-This layer applies when:
+Lower layers define:
 
-- agents select goals,
-- trade-offs are evaluated,
-- prohibitions are declared,
-- legitimacy is claimed,
-- commitments are made binding.
+* What is physically possible (Core).
+* What is structurally coherent (Typing).
+* How to regulate state (Control).
+* How to search and commit (Cognition).
 
-It includes:
+The Normative Layer defines:
 
-- ethics,
-- institutional norms,
-- personal values,
-- constitutional rules,
-- mission statements,
-- declared priorities.
+> Which physically possible trajectories are declared admissible.
 
-It does not assume moral realism.
-It does not assume universal agreement.
-
-It assumes only:
-
-> Goals constrain action space.
+Norms operate by restricting the feasible set.
 
 ---
 
-# 2. Norms as Constraints, Not Explanations
+# 2. Formal Definition of Norm
 
-A norm is a constraint on admissible action.
+Let:
 
-It does not describe the world.
-It restricts reachable states.
+$$
+\Omega_H
+$$
 
-Examples:
+be the set of all physically possible trajectories over horizon $H$ that satisfy:
 
-- “Do not violate safety invariant.”
-- “Truth over prestige.”
-- “Never use force except under X.”
-- “Health before achievement.”
+* Execution primitives (E1–E8)
+* Resource constraints
+* State constraints
+* Control feasibility
 
-Norms are upstream filters on control and cognition.
+A norm is a constraint function:
 
-They operate at the closure boundary.
+$$
+N_j(\tau) \le 0
+$$
 
----
+where:
 
-# 3. The Two Directions of Constraint
+* $\tau \in \Omega_H$ is a trajectory
+* $N_j$ evaluates admissibility
 
-There are two structurally distinct constraint directions:
+The norm-restricted admissible set:
 
-## 3.1 Physics-Up (Non-Negotiable)
+$$
+\Omega_H^N = { \tau \in \Omega_H \mid N_j(\tau) \le 0 \ \forall j }
+$$
 
-From Execution Layer:
+Norms shrink the admissible set.
 
-- bounded resources,
-- irreversibility,
-- topology,
-- drift,
-- viability.
-
-These constrain what is possible.
-
-They are descriptive.
+They do not alter physics.
 
 ---
 
-## 3.2 Goal-Down (Chosen)
+# 3. Norm Categories
 
-From Normative Layer:
+Norms may constrain:
 
-- declared values,
-- mission selection,
-- prohibited actions,
-- acceptable trade-offs,
-- identity commitments.
-
-These constrain what is permitted.
-
-They are selected.
-
----
-
-# 4. Norms as Additional Constraint Sets
-
-Normative constraints are:
-
-- extra conditions on admissible actions,
-- not replacements for physical constraints.
-
-They reduce degrees of freedom.
+## 3.1 Outcome Constraints
 
 Example:
 
-Physics allows deception.
-Normative layer may prohibit it.
+* Harm ≤ threshold
+* Inequality ≤ bound
+* Risk ≤ tolerance
 
-Physics allows self-sacrifice.
-Normative layer may forbid reckless collapse.
+Form:
 
-Norms define:
+$$
+g(x(t)) \le 0
+$$
 
-> Which physically possible paths are declared inadmissible.
+---
+
+## 3.2 Action Constraints
+
+Example:
+
+* Prohibit deception
+* Prohibit force except under $X$
+* Require transparency
+
+Form:
+
+$$
+a(t) \notin A_{prohibited}
+$$
+
+---
+
+## 3.3 Resource Allocation Constraints
+
+Example:
+
+* Minimum redundancy required
+* Savings floor required
+* Health floor required
+
+Form:
+
+$$
+r_i(t) \ge \sigma_i
+$$
+
+Where $\sigma_i$ may exceed collapse threshold $\tau_i$.
+
+---
+
+## 3.4 Procedural Constraints
+
+Example:
+
+* Require review before deployment
+* Require consent before action
+* Require majority approval
+
+These constrain transition rules.
+
+---
+
+# 4. Two Directions of Constraint
+
+There are two structurally distinct constraint directions.
+
+---
+
+## 4.1 Physics-Up Constraints (Non-Negotiable)
+
+From Execution Primitives:
+
+* Finite resources
+* Irreversibility
+* Drift
+* Conservation
+* Topology
+
+These cannot be altered by normative choice.
+
+---
+
+## 4.2 Goal-Down Constraints (Chosen)
+
+Norms introduce additional admissibility filters:
+
+$$
+\Omega_H \rightarrow \Omega_H^N
+$$
+
+These are selected.
+
+They are not derived from physics.
 
 ---
 
 # 5. Legitimacy
 
-Legitimacy is:
+Legitimacy is defined as:
 
-> Acceptance of a normative constraint set by relevant loci in topology.
+> Normative constraint acceptance by relevant loci in topology.
 
-Legitimacy requires:
+Let:
 
-- substitutability,
-- explicitness,
-- declared enforcement,
-- bounded horizon.
+* $V \subseteq G$ be relevant nodes.
+* Norm $N$ be declared.
 
-Illegitimate norms:
+Norm is legitimate relative to $V$ if:
 
-- lack topology support,
-- depend only on narrative,
-- impose load without declared authority.
+1. Enforcement pathway exists in topology.
+2. Load exposure is declared.
+3. Authority over enforcement is specified.
+4. Horizon scope is declared.
 
-Norms must survive executability to coordinate.
+Legitimacy is topology-relative.
+
+It is not moral truth.
 
 ---
 
 # 6. Normative Closure
 
-Norms become binding only when:
+A norm becomes binding only when:
 
-- embedded in executable structures,
-- admitted into contracts,
-- enforced through control,
-- integrated into decision boundaries.
+1. It crosses executability boundary.
+2. It is embedded in contracts or enforcement structures.
+3. Violation produces measurable consequence.
+4. Load routing is declared.
 
-Otherwise they remain narrative preferences.
+Otherwise it remains narrative preference.
 
-A value that never crosses the executability boundary is interpretive only.
+Narrative norms do not constrain trajectory.
+
+Binding norms do.
 
 ---
 
-# 7. Horizon Sensitivity of Norms
+# 7. Horizon Sensitivity
 
 Norms are horizon-bound.
 
-Short-horizon norms:
+Let norm evaluate trajectory over horizon:
 
-- maximize immediate welfare,
-- reduce discomfort,
-- minimize conflict.
+$$
+H_N
+$$
 
-Long-horizon norms:
+Short-horizon norms may conflict with long-horizon norms.
 
-- preserve viability,
-- protect redesign capacity,
-- guard against tail risk.
+Example:
 
-Horizon mismatch causes:
+* Short-term comfort vs long-term health.
+* Short-term profit vs long-term solvency.
 
-- moral incoherence,
-- institutional instability,
-- personal burnout.
+Norms must declare evaluation horizon.
 
-Norms must declare horizon scope.
+Norms without horizon are under-typed.
 
 ---
 
 # 8. Trade-Off Surfaces
 
-Norms define trade-off surfaces between:
+Norms define trade-off surfaces between metrics:
 
-- truth and harmony,
-- autonomy and safety,
-- efficiency and redundancy,
-- loyalty and fairness,
-- exploration and stability.
+Examples:
 
-These trade-offs cannot be removed.
+* Safety vs efficiency
+* Equity vs productivity
+* Autonomy vs coordination
+* Exploration vs stability
 
-They can only be:
+Let objective vector:
 
-- declared,
-- prioritized,
-- versioned.
+$$
+M(\tau) = (m_1, m_2, ..., m_k)
+$$
+
+Norms restrict acceptable region in metric space.
+
+Trade-offs cannot be eliminated.
+They must be declared.
 
 Hidden trade-offs produce invisible load.
 
 ---
 
-# 9. Versioning of Normative Systems
+# 9. Versioning
 
-Normative systems drift.
+Norms drift under:
 
-To remain redesign-safe:
+* Environmental change
+* Institutional change
+* Cultural evolution
+* Technological development
 
-- norms must be versioned,
-- enforcement scope must be declared,
-- redesign authority must be explicit.
+Normative system at time $t$:
 
-Unversioned norms harden into:
+$$
+N_t
+$$
 
-- dogma,
-- silent coercion,
-- frozen topology.
+Versioning requires:
 
-Versioning preserves adaptability.
+* Explicit declaration of revision.
+* Migration cost acknowledgment.
+* Horizon update.
+* Enforcement transition plan.
+
+Unversioned norms harden and become misaligned under drift.
 
 ---
 
 # 10. Normative Failure Modes
 
-## 10.1 Moralizing Physics
+---
 
-Declaring that physical constraints are unjust.
+## 10.1 Attempting to Override Physics
 
 Example:
-- “We should not need sleep.”
 
-This is ill-typed.
+* “No one should need sleep.”
+
+This violates E1.
+
+Ill-typed.
 
 ---
 
 ## 10.2 Narrative-Only Norms
 
-Declaring values without enforcement or structural embedding.
+Declared but unenforced.
 
-Result:
-- signaling without constraint.
+No enforcement topology.
+
+Result: signaling without constraint.
 
 ---
 
-## 10.3 Over-Constraining Upstream
+## 10.3 Over-Constraining
 
-Adding normative constraints that:
+Norms that:
 
-- reduce viability,
-- eliminate redesign capacity,
-- suppress refusal symmetry.
+* Remove redesign DOFs,
+* Eliminate refusal symmetry,
+* Exhaust resource margin,
 
-Norms must not violate execution primitives.
+May cause systemic instability.
+
+Norms must remain compatible with execution primitives.
 
 ---
 
 ## 10.4 Under-Constraining
 
-Failing to declare prohibitions leads to:
+Failure to declare prohibitions leads to:
 
-- hidden coercion,
-- silent load displacement,
-- emergent illegitimacy.
+* Hidden coercion,
+* Load asymmetry,
+* Governance instability.
 
 ---
 
 # 11. Norms and Power
 
-Power determines:
+Power is:
 
-- who sets norms,
-- who enforces norms,
-- who bears normative load,
-- who controls redesign authority.
+> Capacity to modify admissible set $\Omega_H^N$.
 
-Normative authority without load exposure is unstable.
+Norm-setting authority must:
 
-Norms that assign cost asymmetrically without topology awareness will collapse.
+* Bear load exposure,
+* Be traceable in topology,
+* Be revocable under declared process.
+
+Norms that impose cost asymmetrically without load exposure destabilize governance.
 
 ---
 
-# 12. Personal Normative Layer
+# 12. Domain Examples
 
-In the personal domain:
+---
+
+## 12.1 Robotics
 
 Norms include:
 
-- “Truth before comfort.”
-- “Health before status.”
-- “Refusal symmetry is non-negotiable.”
-- “Do not trade long-horizon viability for short validation.”
+* Safety invariants,
+* Regulatory compliance,
+* Redundancy requirements,
+* Fail-safe policies.
 
-These reduce reachable states.
+These reduce performance envelope.
+
+They increase system admissibility relative to regulatory topology.
+
+---
+
+## 12.2 Personal Domain
+
+Norms may include:
+
+* Health floor requirement,
+* Financial reserve requirement,
+* Truth constraint,
+* Non-violence constraint.
+
+These restrict reachable trajectories.
 
 They increase friction.
+They may reduce optionality.
+They may increase long-horizon stability.
 
-They may reduce social access.
-
-But they stabilize long-horizon coherence.
-
-Norms must still pass viability.
+Norm selection is separate from physics.
 
 ---
 
-# 13. Robotics Normative Layer
+# 13. Separation from Optimization
 
-In robotics:
+Optimization operates within:
 
-Norms include:
+$$
+\Omega_H^N
+$$
 
-- safety invariants,
-- fail-safe requirements,
-- transparency mandates,
-- regulatory compliance.
+Norms define admissible region.
+Optimization selects within that region.
 
-These constrain design space.
-
-They may reduce performance.
-
-They increase legitimacy and survivability.
+Optimization cannot derive norms.
+Norms cannot negate physics.
 
 ---
 
-# 14. Separation from Optimization
+# 14. What This Layer Does Not Do
 
-Optimization operates within normative constraints.
+This layer does not:
 
-Norms define objective admissibility.
-Optimization improves within admissible region.
+* Claim moral universality.
+* Guarantee fairness.
+* Eliminate conflict.
+* Override irreversibility.
+* Define ultimate value.
 
-Optimization cannot determine norms.
-
-Norms cannot violate physics.
-
----
-
-# 15. What This Layer Is Not
-
-It is not:
-
-- a moral doctrine,
-- a universal ethics,
-- a political manifesto.
-
-It is a structural description of how values become constraints.
-
-It clarifies:
-
-- where values enter,
-- how they bind,
-- how they fail,
-- how they drift.
+It defines how chosen values become structural constraints.
 
 ---
 
-# Summary
+# 15. Summary
 
 The Normative Layer:
 
-- selects which paths are admissible,
-- constrains action space beyond physics,
-- declares trade-offs,
-- binds goals into execution,
-- requires topology for legitimacy,
-- must respect viability and drift.
+* Introduces admissibility constraints over physically possible trajectories.
+* Restricts reachable state space.
+* Defines trade-offs.
+* Requires enforcement topology.
+* Is horizon-bound.
+* Must respect execution primitives.
+* Can drift and require versioning.
 
-Physics defines what is possible.
-Norms define what is permitted.
-Control keeps it stable.
-Cognition chooses paths.
-Execution makes it real.
+Physics defines possibility.
+Typing defines coherence.
+Control enforces bounds.
+Cognition selects paths.
+Norms restrict admissibility.
 
-Everything must type-check.
+Everything must remain type-consistent.
+
+Norms are constraint functions.
+They are not physical laws.
