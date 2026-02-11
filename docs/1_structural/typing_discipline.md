@@ -24,7 +24,7 @@ It specifies when claims about:
 
 are **well-formed** with respect to bounded execution under drift.
 
-If `execution_primitives.md` defines what must be true for systems to run,  
+If `0_core/execution_primitives.md` defines what must be true for systems to run,  
 this document defines what must be true for statements about those systems to be coherent.
 
 ---
@@ -33,7 +33,7 @@ this document defines what must be true for statements about those systems to be
 
 This layer assumes all primitives from:
 
-> `execution_primitives.md`
+> `0_core/execution_primitives.md`
 
 If any execution primitive is invalidated,  
 all typing guarantees in this document must be re-evaluated.
