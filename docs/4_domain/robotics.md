@@ -1,5 +1,6 @@
-# Robotics Domain Layer  
-## Embodied Execution Under Physical Constraint (ROS / ROS2 Context)
+# Robotics Domain Layer
+
+## Embodied Execution Under Physical Constraint
 
 ---
 
@@ -7,464 +8,445 @@
 
 This document instantiates the stack in a concrete domain:
 
-> **Robotics as embodied, load-bearing execution under physical constraint.**
+> Physical robotic systems operating under measurable constraints.
 
 It assumes:
 
-- `0_core/execution_primitives.md`
-- `1_structural/typing_discipline.md`
-- `2_control/control_layer.md`
-- `3_cognitive/cognitive_layer.md`
+* Execution Primitives (E1–E8)
+* Structural Typing Discipline
+* Control Layer
+* Cognitive Layer
+* Exploration vs Execution separation
 
-This is not a tutorial.
-It is not an introduction to ROS.
+It introduces no new primitives.
 
-It is a structural mapping:
+It maps the abstract stack to:
 
-> How the constraint stack manifests in real robotic systems.
+* Physical hardware
+* Control loops
+* ROS/ROS2-style distributed architectures
+* Resource-constrained embodied systems
 
----
-
-# 1. Why Robotics Is a Canonical Domain
-
-Robotics is structurally unforgiving because:
-
-- Execution is physical.
-- State transitions consume energy.
-- Failure has immediate consequences.
-- Topology is literal.
-- Latency is measurable.
-- Buffers are finite.
-- Drift is unavoidable.
-
-Robotics collapses narrative slack.
-
-It is therefore an ideal stress-test for the stack.
+Robotics is used because it exposes physical constraint directly.
 
 ---
 
-# 2. Execution Primitives in Robotics
+# 1. Domain Model
 
-## E1 — Bounded Resources
+A robotic system consists of:
 
-In robotics:
+* Physical body
+* Sensors
+* Actuators
+* Compute units
+* Communication links
+* Power source
+* Environment
 
-- Battery is finite.
-- Compute is finite.
-- Thermal headroom is finite.
-- Bandwidth is finite.
-- Mechanical tolerances are finite.
-- Attention (sensor processing capacity) is finite.
+Let global system state:
 
-Infinite simulation assumptions fail in hardware.
+$$
+x(t) = (x_{robot}(t), x_{env}(t))
+$$
+
+Topology:
+
+$$
+G = (V, E)
+$$
+
+Where nodes $V$ include:
+
+* Compute nodes
+* Actuators
+* Sensors
+* Power modules
+* Communication buses
+
+Edges represent:
+
+* Energy transfer
+* Data transfer
+* Mechanical coupling
+* Control authority
+
+Robotics makes topology explicit and measurable.
 
 ---
 
-## E2 — Partial Observability
+# 2. Resource Vectors in Robotics (E1)
 
-Robots never see:
+Each locus has measurable resource vector:
 
-- complete state,
-- true pose without noise,
-- full environment occupancy,
-- future disturbances.
+$$
+R_L = (E, P, M, C, B, T)
+$$
 
-All sensing is:
+Typical components:
 
-- delayed,
-- noisy,
-- filtered,
-- model-dependent.
+* Battery energy (J)
+* Instantaneous power (W)
+* Memory (bytes)
+* Compute capacity (FLOPs/s)
+* Communication bandwidth (bits/s)
+* Thermal headroom (°C or J)
+
+All are finite and measurable.
+
+Simulation assumptions that ignore these violate E1.
 
 ---
 
-## E3 — Irreversibility
+# 3. Information Limits (E2)
+
+Sensor model:
+
+$$
+y(t) = h(x(t)) + \eta(t)
+$$
+
+Where:
+
+* $\eta(t)$ = noise
+* Finite sampling frequency (Hz)
+* Finite resolution (bits)
+* Finite bandwidth (bits/s)
+
+Examples:
+
+* Camera frame rate
+* LiDAR angular resolution
+* IMU bias and noise
+* Encoder quantization
+
+Perfect observability is physically unattainable.
+
+State estimation must operate under these limits.
+
+---
+
+# 4. Irreversibility (E3)
 
 Physical actuation:
 
-- consumes energy,
-- degrades hardware,
-- changes environment,
-- risks damage.
+$$
+u(t) \rightarrow x(t+1)
+$$
 
-Undo is not free.
+Consumes energy:
 
-A crashed robot does not revert to pre-crash state.
+$$
+E_{consumed} > 0
+$$
 
----
+Produces entropy:
 
-## E4 — Irreversible Abstraction
+$$
+\Delta S \ge 0
+$$
 
-### Representational Loss
+Examples:
 
-- SLAM maps compress geometry.
-- Perception models classify continuous reality.
-- Learned policies compress action space.
+* Motor heating
+* Gear wear
+* Battery depletion
+* Structural fatigue
 
-### Actuation Loss
+Crashes cannot be undone without cost.
 
-- Motor commands collapse infinite micro-adjustments.
-- Planning selects one branch.
-- Execution prunes alternatives.
-
-Loss is structural.
-
----
-
-## E5 — Drift
-
-Drift appears as:
-
-- wheel slip,
-- sensor calibration shift,
-- battery degradation,
-- wear,
-- terrain change,
-- latency variation.
-
-Stationarity is a temporary convenience.
+Undo requires additional execution and energy.
 
 ---
 
-## E6 — Horizon
+# 5. Representation Compression (E4)
 
-Robotics horizons may include:
+Full state $x(t)$ is high-dimensional.
 
-- battery window,
-- mission duration,
-- component lifetime,
-- regulatory compliance window,
-- safety envelope.
+Robotic systems maintain compressed representation:
 
-All validity is horizon-bound.
+$$
+\hat{x}(t) = \phi(x(t))
+$$
 
----
+Examples:
 
-## E7 — Topology
+* Occupancy grids
+* SLAM maps
+* Pose estimates
+* Learned embeddings
 
-Topology in robotics is explicit:
+Compression trades fidelity for tractability.
 
-- Node graph (ROS graph).
-- Physical wiring.
-- Power distribution.
-- Communication interfaces.
-- Kinematic chain.
-- Environmental coupling.
-
-Load propagates through real structure.
+Information loss is unavoidable under finite compute.
 
 ---
 
-## E8 — Consequence Propagation
+# 6. Drift (E5)
 
-Disturbance propagates via:
+Parameters drift over time:
 
-- control loops,
-- mechanical resonance,
-- network delay,
-- resource contention,
-- feedback amplification.
+$$
+\frac{d\theta}{dt} \neq 0
+$$
 
-Intent does not change topology.
+Examples:
 
----
+* Battery degradation
+* Sensor calibration drift
+* Wheel slip variation
+* Temperature-induced latency changes
+* Mechanical wear
 
-## E9 — Viability
+Control policies designed for $\theta_0$ degrade as $\theta(t)$ shifts.
 
-A robot is viable if it can:
-
-- continue sensing,
-- continue actuating,
-- maintain internal coherence,
-- avoid catastrophic damage,
-- stay within safety constraints.
-
-Optimization without viability is meaningless.
+Stationarity assumptions are horizon-bound.
 
 ---
 
-# 3. Typing Discipline in Robotics
+# 7. Horizon (E6)
 
-## Executability Boundary
+Robotic horizons include:
 
-- Publishing a ROS message is execution.
-- Setting a parameter is execution.
-- Calling a service is execution.
-- Failing to handle a default callback is execution.
+* Mission duration (seconds/minutes)
+* Battery discharge window
+* Mechanical lifetime (cycles)
+* Regulatory compliance interval
 
-Documentation and design docs are interpretation.
-Actuation and invocation cross the boundary.
+All performance and safety claims must specify horizon.
 
----
-
-## Viability Gate
-
-Before optimizing:
-
-- speed,
-- accuracy,
-- throughput,
-- path length,
-
-the system must:
-
-- not overheat,
-- not drain battery prematurely,
-- not violate safety invariants.
-
-Viability precedes performance.
+Infinite-horizon optimality is physically unrealizable.
 
 ---
 
-## Closure and DOFs
+# 8. Structured Topology (E7)
 
-For a navigation stack:
+Robotics explicitly exposes topology:
 
-- Essential DOFs → kinematic constraints, safety limits
-- Optional DOFs → path smoothing parameters
-- Latent DOFs → alternative planners
-- Irrelevant DOFs → aesthetic UI preferences
-- Unknown DOFs → unmodeled terrain factors
+* ROS node graph
+* Power distribution network
+* Kinematic chain
+* Communication architecture
+* Physical frame connections
 
-Failure to declare these leads to fragile deployment.
+Load propagation:
 
----
+$$
+\Delta L_v = \sum f_{in} - \sum f_{out}
+$$
 
-## Decidable Boundary
+Examples:
 
-Agency exists when:
+* CPU overload from perception node
+* Power spike from actuator
+* Network congestion
+* Thermal accumulation
 
-- Operator can refuse mission before deployment.
-- System can safely abort.
-- Emergency stop is executable.
+Topology determines:
 
-If refusal leads to catastrophic loss, agency is ill-typed.
-
----
-
-## Responsibility
-
-Responsibility in robotics follows:
-
-- actuator authority,
-- parameter control,
-- topology control,
-- boundary decisions.
-
-Not who “intended” something.
-
-Load follows wiring.
+* Failure modes
+* Load redistribution
+* Responsibility attribution
 
 ---
 
-## Metrics
+# 9. Consequence Propagation (E8)
 
-Valid robotics metrics:
+Disturbance injected at one node propagates via edges.
 
-- computable under hardware limits,
-- horizon-aligned,
-- substitutable across runs,
-- failure-detectable.
+Examples:
 
-Invalid metrics:
+* High control gain → actuator saturation → battery spike → thermal overload
+* Sensor dropout → estimator error → control instability → mechanical stress
 
-- infinite simulation reward,
-- offline-only success rates,
-- non-reproducible benchmarks.
+Energy, information, and force obey conservation constraints.
 
-Metrics must fail under stress to remain meaningful.
+Disturbance may dissipate but cannot vanish without transformation.
 
 ---
 
-# 4. Control Layer in Robotics
+# 10. Control in Robotics
 
-Robotics is fundamentally control-dominant.
+System dynamics:
 
-## Feedback Loops
+$$
+\dot{x}(t) = f(x(t), u(t), d(t), \theta(t))
+$$
 
-- PID controllers
-- State estimators
-- MPC (Model Predictive Control)
-- Sensor fusion loops
+Control law:
 
-Stability limited by:
+$$
+u(t) = \pi(\hat{x}(t))
+$$
 
-- latency,
-- compute budget,
-- noise,
-- drift.
+Subject to:
 
----
+* Actuator limits
+* Latency
+* Resource constraints
+* Drift
 
-## Buffers
+Stability requires:
 
-Buffers include:
+* State constraints satisfied
+* Resource thresholds maintained
+* Actuator saturation avoided
 
-- battery reserve,
-- computational headroom,
-- mechanical slack,
-- queue depth,
-- watchdog timers.
+Examples of constraints:
 
-Buffers hide drift until saturation.
+* Temperature ≤ $Tmax$
+* Battery ≥ $E_min$
+* Joint torque ≤ $τ_max$
+* Position error ≤ $ε_max$
 
----
-
-## Control Failure Modes
-
-- Oscillation due to latency.
-- Integral windup.
-- Thermal runaway.
-- Queue overflow.
-- Cascading failure from dropped messages.
-
-Control stability is not narrative-dependent.
+Control must operate within these measurable limits.
 
 ---
 
-# 5. Cognitive Layer in Robotics
+# 11. Cognitive Layer in Robotics
 
-Robotics faces effective infinity in:
+Planning space:
 
-- path planning,
-- environment modeling,
-- task decomposition,
-- policy learning.
+$$
+A = \text{possible trajectories}
+$$
 
-## Representation
+Search cost:
 
-- Occupancy grids
-- Graph abstractions
-- Learned embeddings
-- Behavior trees
+$$
+C_{eval}(trajectory)
+$$
 
-All compress state.
+Evaluation limited by:
 
----
+* Compute budget
+* Time horizon
+* Memory
 
-## Exploration vs Exploitation
+Exploration vs exploitation:
 
-- Randomized planners explore.
-- Deterministic planners exploit.
-- Learned policies compress exploration into inference.
+* Randomized sampling planners explore.
+* Deterministic controllers exploit.
+* Learning compresses policy space.
 
-Premature closure leads to brittleness.
-Over-exploration drains battery.
+Premature exploitation → brittleness under drift.
+Excessive exploration → battery depletion.
 
----
-
-## Path Dependence
-
-Early map errors propagate.
-Incorrect priors bias planning.
-Initial calibration shapes future viability.
-
-Traversal is irreversible.
+Traversal is path-dependent and irreversible.
 
 ---
 
-# 6. Governance and Interface Contracts (Robotics-Specific)
+# 12. Executability Boundary in Robotics
 
-Robotics systems require explicit contracts:
+Exploration:
 
-- Message types
-- Service interfaces
-- Action definitions
-- Safety invariants
-- Parameter bounds
-- Timing guarantees
+* Simulation
+* Planning tree expansion
+* Internal policy evaluation
 
-ROS/ROS2 provides:
+Execution:
 
-- Interface typing
-- Namespace isolation
-- Lifecycle management
+* Publishing motor command
+* Writing actuator register
+* Engaging physical interface
+* Triggering hardware control loop
 
-Governance failures appear as:
+Crossing boundary activates:
 
-- undocumented dependencies,
-- silent parameter drift,
-- implicit assumptions between nodes,
-- hidden resource contention.
+* Resource consumption
+* Irreversibility
+* Safety constraints
+* Load propagation
 
-Interface contracts are structural, not bureaucratic.
+Simulation is sandboxed exploration.
 
----
-
-# 7. Power in Robotics
-
-Power in robotics manifests as control over:
-
-- actuation authority,
-- topology configuration,
-- firmware updates,
-- safety overrides,
-- buffer allocation.
-
-Power does not remove constraints.
-It redistributes load.
+Actuation is execution.
 
 ---
 
-# 8. Personal Specialization Context
+# 13. Typing in Robotics
 
-Given specialization in:
+A robotics control claim must declare:
 
-- Robotics,
-- ROS/ROS2,
-- Embodied systems,
+* Horizon $H$
+* Disturbance bound $D$
+* Drift assumptions
+* Resource thresholds
+* Actuator limits
+* State constraint functions
 
-this domain layer is a natural first expansion.
+Examples of under-typed claims:
 
-It allows:
+* “It will always stabilize.”
+* “Battery is sufficient.”
+* “It’s safe under all conditions.”
 
-- direct testing of the core,
-- measurable stability,
-- visible load routing,
-- concrete redesign experiments.
-
-Other domains can be added without modifying core layers.
-
----
-
-# 9. What This Domain Layer Is Not
-
-It is not:
-
-- a robotics curriculum,
-- a ROS tutorial,
-- a control theory textbook,
-- an optimization handbook.
-
-It is a structural mapping.
-
-It shows how:
-
-- physics,
-- typing,
-- control,
-- cognition,
-- governance,
-
-interact in embodied systems.
+Claims without measurable bounds are ill-typed.
 
 ---
 
-# Summary
+# 14. Governance Interfaces (Robotics-Specific)
 
-Robotics is execution without narrative slack.
+Robotic systems require explicit interface contracts:
 
-It makes:
+* Message types
+* Timing guarantees
+* Safety invariants
+* Parameter bounds
+* Hardware limits
 
-- irreversibility visible,
-- topology literal,
-- buffers measurable,
-- drift observable,
-- viability non-negotiable.
+In ROS/ROS2 systems:
 
-The stack is not abstract here.
+* Topic types
+* Service definitions
+* Node lifecycle states
+* Namespace separation
 
-It runs on hardware.
+Interface violations propagate failure through topology.
 
-If it fails here,
-it fails everywhere.
+Governance authority must align with load exposure.
+
+Software-only authority over hardware safety invariants is structurally unstable.
+
+---
+
+# 15. Failure Modes
+
+Common robotics failure classes:
+
+1. Latency-induced oscillation
+2. Sensor drift → estimator divergence
+3. Thermal runaway
+4. Battery collapse
+5. Queue overflow
+6. Mechanical fatigue
+7. Actuator saturation
+
+All are measurable and topology-driven.
+
+None are narrative-dependent.
+
+---
+
+# 16. Summary
+
+Robotics is:
+
+* Embodied execution under finite resource vectors,
+* Subject to measurable information limits,
+* Irreversible,
+* Drift-exposed,
+* Horizon-bound,
+* Topology-constrained,
+* Conservation-governed.
+
+The abstract stack becomes physically concrete here.
+
+* Resources are measured in joules and watts.
+* Information is measured in bits.
+* Latency is measured in seconds.
+* Drift is measurable parameter change.
+* Failure is physically observable.
+
+Robotics does not allow narrative slack.
+
+If the stack fails here, it fails everywhere.
