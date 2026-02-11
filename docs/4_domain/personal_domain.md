@@ -1,566 +1,506 @@
-# Personal Domain Layer  
-## Embodied Agency, Long-Horizon Viability, and Self-Governance Under Constraint
+# Personal Domain Layer
+
+## Embodied Execution Across Finite Lifespan Under Resource and Drift Constraints
 
 ---
 
 ## Status
 
-This document instantiates the stack in a second concrete domain:
+This document instantiates the stack in the domain of:
 
-> **The personal domain as embodied, load-bearing execution across a human lifetime.**
+> A single embodied human agent operating over a finite lifespan.
 
 It assumes:
 
-- `0_core/execution_primitives.md`
-- `1_structural/typing_discipline.md`
-- `2_control/control_layer.md`
-- `3_cognitive/cognitive_layer.md`
+* Execution Primitives (E1–E8)
+* Structural Typing Discipline
+* Control Layer
+* Cognitive Layer
+* Exploration vs Execution separation
 
-It runs in parallel to:
+It introduces no new primitives.
 
-- `4_domain/robotics.md`
+It models a person as:
 
-This is not self-help.
-It is not motivational content.
-It is not moral philosophy.
+* A bounded physical system,
+* Embedded in shared topology,
+* Subject to irreversible time,
+* Operating under drift,
+* With finite resource vectors.
 
-It is a structural mapping:
-
-> How the constraint stack manifests in a single embodied agent with long horizons.
-
----
-
-# 1. Why the Personal Domain Is Load-Bearing
-
-A person is:
-
-- a bounded executor,
-- embedded in topology,
-- acting under irreversible time,
-- with partial observability,
-- under drift,
-- with finite resources,
-- and eventual forced settlement (death, decline, institutional binding).
-
-The personal domain is not interpretive.
-It is executional.
-
-Narrative may decorate it.
-Biology enforces it.
+This is not therapy.
+It is not moral doctrine.
+It is structural modeling.
 
 ---
 
-# 2. Execution Primitives in the Personal Domain
+# 1. Domain Model
 
-## E1 — Bounded Resources
+Let personal system state be:
 
-Finite:
+$$
+x(t) = (x_{phys}(t), x_{cog}(t), x_{soc}(t))
+$$
 
-- time,
-- cognitive bandwidth,
-- emotional regulation capacity,
-- physical energy,
-- health span,
-- social coordination bandwidth.
+Where:
 
-Infinite self-reinvention is a fiction.
+* $x_{phys}$: physiological state
+* $x_{cog}$: cognitive state
+* $x_{soc}$: relational / institutional embedding
 
-Every commitment consumes option space.
+Embedded in larger topology:
 
----
+$$
+G = (V, E)
+$$
 
-## E2 — Partial Observability
+Where nodes include:
 
-No person has full access to:
+* Individual
+* Employers
+* Family
+* Institutions
+* Financial systems
+* Social networks
 
-- long-term consequences,
-- internal cognitive bias,
-- future regret,
-- social topology,
-- hidden incentives of others.
+Edges represent:
 
-Introspection is not omniscience.
+* Information exchange
+* Economic obligation
+* Legal contracts
+* Emotional reinforcement
+* Authority pathways
 
----
-
-## E3 — Irreversibility
-
-Time does not rewind.
-
-- Words cannot be unspoken.
-- Years cannot be reclaimed.
-- Reputation accumulates path-dependently.
-- Health degrades irreversibly.
-
-Undo is narrative.
-Repair is costly execution.
+Load redistributes through this graph.
 
 ---
 
-## E4 — Irreversible Abstraction
+# 2. Resource Vectors (E1)
 
-### Representational Loss
+Personal resource vector:
 
-Personal identity compresses:
+$$
+R(t) = (T, E, C, M, F, S)
+$$
 
-- past selves,
-- unrealized alternatives,
-- forgotten distinctions.
+Where:
 
-Belief systems discard nuance.
+* $T$: time remaining (seconds, years)
+* $E$: metabolic energy / health capacity
+* $C$: cognitive bandwidth (attention capacity)
+* $M$: memory / skill capacity
+* $F$: financial reserves
+* $S$: social capital / institutional access
 
-### Actuation Loss
+All components are finite.
 
-Choosing:
+Time is strictly decreasing:
 
-- a career,
-- a partner,
-- a project,
-- a discipline,
+$$
+\frac{dT}{dt} = -1
+$$
 
-collapses alternative futures.
-
-Action destroys branches.
-
----
-
-## E5 — Drift
-
-Drift manifests as:
-
-- aging,
-- shifting values,
-- changing environments,
-- institutional change,
-- technological acceleration,
-- relational transformation.
-
-No life regime is stationary.
+No infinite reset exists.
 
 ---
 
-## E6 — Horizon
+# 3. Information Limits (E2)
 
-Personal horizons include:
+Personal state estimation is bounded by:
 
-- daily regulation,
-- project cycles,
-- decade-scale mastery,
-- lifespan viability.
+* Sensory limits
+* Cognitive processing limits
+* Attention bandwidth
+* Memory capacity
+* Social signal filtering
 
-Horizon-sliding is common and dangerous:
+Decision quality is constrained by:
 
-- optimizing a week at the expense of a decade,
-- sacrificing health for short-term prestige,
-- trading long-term reachability for immediate validation.
+$$
+\text{Information processed} \le C_{cap}
+$$
 
-All evaluation is horizon-bound.
+Complete self-knowledge or future knowledge is unattainable.
 
----
-
-## E7 — Topology
-
-Personal topology includes:
-
-- social networks,
-- institutions,
-- economic systems,
-- family structures,
-- physical embodiment,
-- legal regimes.
-
-Load always lands somewhere:
-
-- in your body,
-- in your relationships,
-- in your reputation,
-- in your time,
-- in your future capacity.
-
-Invisible load accumulates silently.
+All plans operate under partial observability.
 
 ---
 
-## E8 — Consequence Propagation
+# 4. Irreversibility (E3)
 
-Actions propagate via:
+Personal actions produce irreversible transitions:
 
-- memory,
-- institutional records,
-- relational feedback,
-- economic obligation,
-- habit formation.
+* Aging
+* Reputation formation
+* Skill acquisition
+* Relationship changes
+* Legal commitments
+* Habit formation
 
-Propagation is not controlled by intent.
+Formally:
 
----
+$$
+\Omega_{t+1} \subseteq \Omega_t
+$$
 
-## E9 — Viability
+Reachable future states reduce with commitment.
 
-Personal viability means:
+Repair requires additional resource expenditure.
 
-- retaining health sufficient for execution,
-- preserving cognitive clarity,
-- maintaining redesign capacity,
-- avoiding catastrophic lock-in,
-- sustaining agency-grade boundaries.
-
-Optimization without viability is self-destruction disguised as ambition.
+Perfect rollback is impossible.
 
 ---
 
-# 3. Typing Discipline in the Personal Domain
+# 5. Representation Compression (E4)
 
-## Executability Boundary
+Personal identity and world-model are compressed representations:
 
-Interpretation:
+$$
+\hat{x}(t) = \phi(x(t))
+$$
 
-- intentions,
-- aspirations,
-- beliefs,
-- self-narratives.
+Compression effects:
 
-Execution:
+* Forgotten alternatives
+* Simplified self-concept
+* Biased expectation models
+* Reduced attention to low-salience signals
 
-- commitments,
-- contracts,
-- speech,
-- habit formation,
-- financial decisions,
-- time allocation.
+Belief systems reduce dimensionality.
 
-Many personal failures arise from confusing narrative for execution.
-
-Saying “I will” is not execution.
-Signing is.
-Acting is.
+Lossless representation of life context is infeasible.
 
 ---
 
-## Viability Gate
+# 6. Drift (E5)
 
-Before optimizing:
+Personal parameters drift over time:
 
-- status,
-- income,
-- achievement,
-- dominance,
-- influence,
-
-one must maintain:
-
-- health,
-- redesign capacity,
-- cognitive clarity,
-- refusal symmetry.
-
-Ambition without viability is ill-typed.
-
----
-
-## Closure and DOFs
-
-In personal commitments:
-
-- Essential DOFs → non-negotiable boundaries (health, integrity, time limits)
-- Optional DOFs → style, method, expression
-- Latent DOFs → skills kept in reserve
-- Irrelevant DOFs → prestige artifacts
-- Unknown DOFs → unexamined blind spots
-
-Failure to partition DOFs leads to:
-
-- over-commitment,
-- implicit obligation,
-- invisible constraint capture.
-
----
-
-## Decidable Boundary (Agency)
-
-Agency exists only when:
-
-- You can refuse.
-- Refusal does not cause unbounded collapse.
-- Consequences are explicit.
-- Entry into commitment is declared.
-
-Many personal situations are ill-typed agency:
-
-- “You can leave, but you lose everything.”
-- “You agreed implicitly.”
-- “You should have known.”
-
-Agency without refusal symmetry is narrative only.
-
----
-
-## Responsibility
-
-Responsibility follows:
-
-- declared control,
-- accepted DOFs,
-- load-bearing commitments,
-- topology.
-
-Not guilt.
-Not shame.
-Not expectation.
-
-Responsibility is structural load location.
-
----
-
-## Metrics
-
-Personal metrics must:
-
-- be computable under attention limits,
-- align with declared horizons,
-- fail visibly when violated,
-- not silently drift.
+$$
+\theta(t)
+$$
 
 Examples:
 
-- sleep duration,
-- training volume,
-- budget balance,
-- time allocation tracking,
-- project completion ratio.
+* Aging physiology
+* Hormonal shifts
+* Cognitive plasticity decline
+* Value changes
+* Economic environment change
+* Institutional regime shifts
 
-Metrics that only trend and never fail are self-deception tools.
+Drift magnitude over horizon $H$:
 
----
+$$
+D_\theta(H) = \int_0^H \left| \frac{d\theta}{dt} \right| dt
+$$
 
-# 4. Control Layer in the Personal Domain
+Long-horizon commitments must account for drift.
 
-Control mechanisms include:
-
-- habits,
-- routines,
-- health regulation,
-- time blocking,
-- energy management,
-- sleep cycles,
-- environment shaping.
+Stationarity assumptions are temporary.
 
 ---
 
-## Feedback Loops
+# 7. Horizon (E6)
 
-- Mood → productivity → mood
-- Sleep → cognition → decision quality
-- Training → adaptation → performance
-- Social reinforcement → identity reinforcement
+Personal horizons include:
 
-Unstable loops produce burnout, addiction, collapse.
+* Daily regulation
+* Project duration
+* Career span
+* Lifespan
 
-Stability requires:
+All evaluation must declare horizon $H$.
 
-- bounded gains,
-- margin,
-- slack.
+Optimizing weekly performance while degrading decade-scale health is a horizon mismatch.
 
----
-
-## Buffers
-
-Personal buffers include:
-
-- savings,
-- social goodwill,
-- skill redundancy,
-- physical conditioning,
-- uncommitted time.
-
-Buffers hide drift until saturation.
+Infinite-horizon reasoning is ill-typed.
 
 ---
 
-# 5. Cognitive Layer in the Personal Domain
+# 8. Structured Topology (E7)
 
-The personal domain is an effectively infinite search space:
+Personal topology includes:
 
-- careers,
-- ideas,
-- skills,
-- partners,
-- philosophies,
-- creative pursuits.
+* Employment contracts
+* Legal systems
+* Financial obligations
+* Family structure
+* Institutional memberships
 
-Global optimization is ill-typed.
+Load propagation example:
 
----
+* Financial debt → time obligation → stress → physiological impact
+* Reputation loss → opportunity reduction → income loss
 
-## Path Dependence
+Load does not disappear.
+It moves across nodes.
 
-Early decisions:
-
-- shape future networks,
-- determine skill graph,
-- alter visibility,
-- define reachable regions.
-
-Missed exposure compounds.
-
-Traversal is irreversible.
+Topology determines who absorbs cost.
 
 ---
 
-## Exploration vs Exploitation
+# 9. Consequence Propagation (E8)
+
+Actions propagate via:
+
+* Legal records
+* Social memory
+* Financial ledgers
+* Habit reinforcement
+* Institutional tracking
+
+Disturbance introduced at time $t$ may surface at time $t + Δ$.
+
+Examples:
+
+* Sleep debt accumulates.
+* Chronic stress degrades physiology.
+* Financial overextension compounds interest.
+
+No action is consequence-free.
+
+---
+
+# 10. State Constraints
+
+Personal state constraints are measurable:
+
+Examples:
+
+* Blood pressure ≤ threshold
+* Sleep ≥ threshold hours
+* Financial reserves ≥ minimum
+* Debt ≤ limit
+* Cognitive load ≤ sustainable level
+* Legal compliance maintained
+
+Constraint functions:
+
+$$
+g_i(x(t)) \le 0
+$$
+
+Personal stability over $H$ requires:
+
+* All constraints satisfied,
+* Resource thresholds maintained.
+
+---
+
+# 11. Control in Personal Domain
+
+Control mechanisms:
+
+* Habit systems
+* Time allocation
+* Budgeting
+* Sleep regulation
+* Training cycles
+* Stress management
+
+Dynamics:
+
+$$
+\dot{x}(t) = f(x(t), u(t), d(t), \theta(t))
+$$
+
+Where:
+
+* $u(t)$ = deliberate action
+* $d(t)$ = exogenous disturbance (job loss, illness, shock)
+
+Control effort consumes:
+
+* Time
+* Energy
+* Cognitive bandwidth
+
+Over-control depletes reserves.
+Under-control allows drift accumulation.
+
+---
+
+# 12. Cognitive Layer in Personal Domain
+
+Search space:
+
+* Career paths
+* Relationships
+* Skills
+* Belief systems
+* Projects
+
+Decision set size:
+
+$$
+|A| \gg \text{evaluations possible over } H
+$$
 
 Exploration:
 
-- learning,
-- experimentation,
-- relocation,
-- new fields.
+* Learning new domain
+* Relocation
+* Experimentation
 
 Exploitation:
 
-- specialization,
-- refinement,
-- scaling skill.
+* Specialization
+* Scaling known skill
+* Long-term commitment
 
-Premature specialization reduces optionality.
-Perpetual exploration prevents mastery.
+Exploration consumes:
 
-Balance is horizon-dependent.
+* Time
+* Financial margin
+* Cognitive bandwidth
 
----
+Exploitation increases:
 
-# 6. Governance and Interface Contracts (Personal)
+* Lock-in
+* Drift vulnerability
 
-Personal governance requires:
+Balance depends on:
 
-- explicit boundaries,
-- refusal protocols,
-- declared commitments,
-- termination conditions,
-- versioning of identity.
-
-Interface contracts include:
-
-- relationship agreements,
-- employment contracts,
-- collaboration boundaries,
-- declared expectations.
-
-Undeclared expectations create:
-
-- invisible load,
-- moralization,
-- authority insertion.
-
-Explicit contracts reduce narrative substitution.
+* Age (remaining $T$)
+* Resource vector $R$
+* Drift magnitude
 
 ---
 
-# 7. Power in the Personal Domain
+# 13. Executability Boundary
 
-Power manifests as:
+Exploration:
 
-- ability to refuse,
-- ability to redesign commitments,
-- ability to allocate time,
-- ability to relocate load,
-- economic independence,
-- health reserves.
+* Thinking
+* Planning
+* Simulation
+* Drafting ideas
 
-Power is not dominance.
-It is load-routing capacity.
+Execution:
 
-Loss of refusal symmetry is loss of power.
+* Signing contract
+* Accepting job
+* Making financial commitment
+* Public statement
+* Legal agreement
+* Irreversible action
 
----
+Crossing boundary activates:
 
-# 8. The “Relentless Pursuit of Truth” Constraint
+* Legal enforcement
+* Financial obligation
+* Social load routing
+* Irreversibility
 
-If one adopts:
-
-- truth-seeking as a governing objective,
-- invariant-first reasoning,
-- rejection of narrative substitution,
-
-then the personal domain becomes:
-
-- structurally cold,
-- friction-generating,
-- less socially fluid,
-- but long-horizon coherent.
-
-Truth pursuit must still pass viability.
-
-If it destroys health, agency, or redesign capacity,
-it becomes self-contradictory.
+Saying “I might” is exploration.
+Signing is execution.
 
 ---
 
-# 9. Robotics ↔ Personal Parallel
+# 14. Agency Typing
 
-| Robotics | Personal |
-|----------|----------|
-| Battery | Health / energy |
-| Compute budget | Cognitive bandwidth |
-| ROS node graph | Social / institutional topology |
-| Control loop stability | Habit and emotional regulation stability |
-| Safety invariants | Non-negotiable boundaries |
-| Mission horizon | Life horizon |
-| Actuator authority | Decision authority |
-| Buffer reserves | Savings / skill redundancy |
-| Drift | Aging / social change |
-| Crash | Burnout / collapse |
+Agency exists only when:
 
-Both domains:
+* Acceptance and refusal are executable,
+* Consequences are bounded,
+* DOFs are declared.
 
-- are bounded,
-- are drift-exposed,
-- are topology-bound,
-- are horizon-constrained,
-- and require viability before optimization.
+If refusal implies unbounded collapse:
+
+* Agency claim is ill-typed.
+
+Inside execution, only discretion remains.
 
 ---
 
-# 10. What This Layer Is Not
+# 15. Responsibility
 
-It is not:
+Responsibility follows:
 
-- therapy,
-- ethics,
-- moral doctrine,
-- stoicism,
-- asceticism.
+* Control over DOFs,
+* Load routing through topology,
+* Horizon alignment.
 
-It is a structural lens.
+Responsibility does not follow:
 
-It explains:
+* Narrative guilt,
+* Social pressure,
+* External expectation.
 
-- why certain personal collapses are architectural,
-- why guilt often misroutes load,
-- why agency is narrow,
-- why refusal matters,
-- why horizon mismatch destroys viability.
+It follows measurable control and load.
 
 ---
 
-# Summary
+# 16. Buffers
+
+Personal buffers include:
+
+* Savings
+* Skill redundancy
+* Health reserve
+* Social goodwill
+* Uncommitted time
+
+Buffer depletion increases fragility.
+
+Buffers delay but do not eliminate collapse.
+
+---
+
+# 17. Failure Modes
+
+Common personal system failures:
+
+1. Resource collapse (financial or health).
+2. Chronic drift unrecognized.
+3. Over-commitment beyond bandwidth.
+4. Horizon mismatch.
+5. Identity rigidity under regime shift.
+6. Hidden load accumulation.
+
+All are measurable trajectory failures.
+
+---
+
+# 18. What This Layer Does Not Do
+
+This layer does not:
+
+* Define what life should optimize.
+* Define moral virtue.
+* Define happiness.
+* Prescribe value hierarchy.
+
+It models:
+
+Embodied execution under finite lifespan.
+
+Normative overlays belong in the Normative Layer.
+
+---
+
+# 19. Summary
 
 The personal domain is:
 
-- embodied execution under drift,
-- irreversible traversal,
-- bounded cognition,
-- load-bearing topology.
+* A single bounded execution locus,
+* Embedded in larger topology,
+* Subject to irreversible time,
+* Drift-exposed,
+* Resource-constrained,
+* Horizon-bound,
+* Conservation-governed.
 
-It obeys the same primitives as robotics.
+Time decreases monotonically.
+Resource vectors are finite.
+Commitment reduces reachable state space.
+Drift accumulates.
 
-Narrative may decorate it.
-Physics and time govern it.
+There is no infinite reset.
 
-The stack is not abstract here either.
+The abstract stack is physically instantiated in the human body and its social embedding.
 
-It runs in your body.
+It obeys the same measurable constraints as robotics.
 
-If it fails here,
-no abstraction saves it.
+It differs only in scale and complexity.
