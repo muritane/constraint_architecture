@@ -47,11 +47,11 @@ Each primitive is stated in physically measurable terms.
 
 # E1 — Finite Resource Vectors
 
-For every execution locus ( L ), there exists a finite resource vector:
+For every execution locus $L$, there exists a finite resource vector:
 
-[
+$$
 R_L = (r_1, r_2, ..., r_n)
-]
+$$
 
 where each component has measurable physical units, such as:
 
@@ -65,11 +65,11 @@ where each component has measurable physical units, such as:
 * Currency (unit-defined)
 * Thermal capacity (J/K)
 
-For all execution trajectories over horizon ( H ):
+For all execution trajectories over horizon $H$:
 
-[
+$$
 r_i(t) < \infty
-]
+$$
 
 No executor has infinite slack in any resource dimension.
 
@@ -79,15 +79,15 @@ No executor has infinite slack in any resource dimension.
 
 Let:
 
-* ( C ) = channel capacity (bits/s)
-* ( N ) = noise power
-* ( H(X) ) = entropy of system state
+* $C$ = channel capacity (bits/s)
+* $N$ = noise power
+* $H(X)$ = entropy of system state
 
 Then:
 
-[
+$$
 \text{Information acquired per unit time} \le C
-]
+$$
 
 All state estimation is bounded by:
 
@@ -106,23 +106,23 @@ Observability is capacity-limited and noise-corrupted.
 
 For any nontrivial state transition:
 
-[
+$$
 \Delta S \ge 0
-]
+$$
 
-where ( S ) is entropy.
+where $S$ is entropy.
 
 Irreversible processes dissipate energy:
 
-[
+$$
 E_{diss} > 0
-]
+$$
 
 Information erasure incurs minimum thermodynamic cost:
 
-[
+$$
 E_{min} = kT \ln 2 \quad \text{per bit}
-]
+$$
 
 (Landauer bound)
 
@@ -140,14 +140,14 @@ Execution requires compression.
 
 Let:
 
-* ( \Omega ) = full state space
-* ( \hat{\Omega} ) = represented state space
+* $\Omega$ = full state space
+* $\hat{\Omega}$ = represented state space
 
 Then:
 
-[
+$$
 |\hat{\Omega}| \le |\Omega|
-]
+$$
 
 Representation reduces distinguishable states.
 
@@ -155,7 +155,7 @@ Compression can be characterized via:
 
 * Kolmogorov complexity
 * Rate-distortion tradeoff
-* Information loss (bits)
+* Information loss $(bits)$
 
 Lossless full representation of nontrivial systems is infeasible under finite resources.
 
@@ -165,14 +165,14 @@ Lossless full representation of nontrivial systems is infeasible under finite re
 
 Let:
 
-* ( A ) = available action space
-* ( a_t \in A ) = executed action at time t
+* $A$ = available action space
+* $a_t \in A$ = executed action at time t
 
 Execution selects a single trajectory branch:
 
-[
+$$
 \text{Reachable}_{t+1} \subseteq \text{Reachable}_t
-]
+$$
 
 Branching alternatives collapse irreversibly.
 
@@ -182,19 +182,19 @@ Actuation reduces reachable future volume.
 
 # E5 — Drift / Non-Stationarity
 
-Let system parameters be ( \theta(t) ).
+Let system parameters be $\theta(t)$.
 
 Drift is defined as:
 
-[
+$$
 \frac{d\theta}{dt} \neq 0
-]
+$$
 
-Drift magnitude over horizon ( H ):
+Drift magnitude over horizon $H$:
 
-[
+$$
 D(H) = \int_0^H \left| \frac{d\theta}{dt} \right| dt
-]
+$$
 
 No nontrivial real-world system has globally stationary causal structure.
 
@@ -206,9 +206,9 @@ All invariants are regime-bound and horizon-bound.
 
 All evaluation and execution occur over a finite horizon:
 
-[
+$$
 H \in (0, \infty)
-]
+$$
 
 Horizon may be measured in:
 
@@ -228,14 +228,14 @@ No infinite-horizon evaluation is physically realizable under E1–E5.
 
 Execution occurs in structured systems representable as graphs:
 
-[
+$$
 G = (V, E)
-]
+$$
 
 where:
 
-* ( V ) = loci (nodes)
-* ( E ) = interaction edges
+* $V$ = loci (nodes)
+* $E$ = interaction edges
 
 Edges may represent:
 
@@ -245,11 +245,11 @@ Edges may represent:
 * Authority pathways
 * Economic obligation
 
-Load accumulation at node ( v ):
+Load accumulation at node $v$:
 
-[
+$$
 \Delta L_v = \sum_{in} f_e - \sum_{out} f_e
-]
+$$
 
 Disturbance must propagate through edges.
 
@@ -269,11 +269,11 @@ For any state transition:
 
 Energy, momentum, and conserved quantities obey:
 
-[
+$$
 \sum_{in} = \sum_{out} + \text{dissipation}
-]
+$$
 
-Disturbance introduced at node ( v ) propagates via:
+Disturbance introduced at node $v$ propagates via:
 
 * Network flow
 * Coupling coefficients
