@@ -1,30 +1,34 @@
 # Constraint Architecture for Bounded Execution  
-## Layered Structure, Reading Order, and Modification Discipline
+## Layered Structure, Interface Contracts, and Stack Governance
 
 ---
 
 ## Status and Intent
 
-This document describes a **layered constraint architecture** for reasoning about execution in bounded, irreversible, drifting systems.
+This document defines a **layered constraint architecture** for reasoning about action, coordination, control, and redesign in bounded, irreversible, drifting systems.
 
 It clarifies:
 
-- what the **Core** is and why it is treated as untouchable,
-- under what conditions the Core may legitimately change,
-- what layers follow the Core,
-- when cognitive, control, and domain constraints enter,
-- and how to read the structure without collapsing levels.
+- What the **Core** is and why it is treated as minimally non-negotiable.
+- How higher layers depend on lower layers.
+- What **interface contracts** exist between layers.
+- What a **Stack Governance** layer is and when it activates.
+- How this structure can be used directly as a repository layout.
 
 This is not a theory of everything.  
-It is a **discipline for separating constraint classes**.
+It is a **discipline for separating constraint classes** and preventing category collapse.
 
 ---
 
 # I. The Layered Constraint Stack
 
-The architecture is stratified.  
-Each layer depends on the ones below it.  
-Higher layers cannot invalidate lower layers without exiting scope.
+The architecture is strictly layered.
+
+Each layer:
+
+- depends on the layers below it,
+- cannot invalidate lower layers without exiting scope,
+- must declare its interface to adjacent layers.
 
 The layers are:
 
@@ -34,366 +38,357 @@ The layers are:
 4. **Cognitive Layer**
 5. **Domain Layer**
 6. **Normative / Goal Layer**
+7. **Stack Governance (Meta-Layer)**
 
-They are not symmetric.  
-Lower layers constrain the possibility of higher ones.
+The first six govern execution.  
+The seventh governs modification of the stack itself.
+
+Lower layers constrain higher ones.  
+Higher layers may refine but never contradict lower ones without triggering governance.
 
 ---
 
-# II. Layer 1 — The Physical / Execution Core
+# II. Layer 1 — Physical / Execution Core
 
 ## Definition
 
-The Core consists of **non-negotiable constraints** required for execution to exist at all under bounded conditions.
+The Core contains the minimal constraints required for execution under bounded conditions.
 
-Examples include:
+Typical primitives include:
 
-- bounded resources,
-- partial observability,
-- irreversibility,
-- unavoidable abstraction,
-- drift / non-stationarity,
-- horizon-bounded validity,
-- topological load propagation.
+- **Bounded Resources**
+- **Partial Observability**
+- **Irreversibility of Action**
+- **Unavoidable Abstraction (lossy representation and/or actuation)**
+- **Drift / Non-Stationarity**
+- **Horizon-Bounded Validity**
+- **Topological Load Propagation**
 
-These are not preferences.
-They are not institutional artifacts.
+These are not domain assumptions.  
 They are structural properties of action in time.
 
 ---
 
-## Why the Core Is Untouchable
+## Why the Core Is Minimally Non-Negotiable
 
-The Core is untouchable because:
+If any Core constraint is silently removed:
 
-- If boundedness disappears, execution collapses into idealization.
-- If irreversibility disappears, responsibility typing collapses.
-- If topology disappears, load routing collapses.
-- If abstraction is reversible, closure loses meaning.
-- If drift is impossible, horizon typing becomes trivial.
-
-Removing any core constraint does not simplify the system.  
-It produces **invisible assumptions** that reappear downstream.
+- Optimization becomes untethered from viability.
+- Responsibility loses load anchoring.
+- Agency becomes narrative.
+- Metrics become decorative.
+- Control loses meaning.
+- Redesign becomes incoherent.
 
 The Core is therefore:
 
 > The minimal constraint set required for execution to remain well-typed.
 
----
-
-## When the Core *Is* Legitimately Modifiable
-
-The Core may be revised only if:
-
-1. **Scope changes**  
-   Example: the system no longer requires persistence or execution.
-
-2. **Physics-level knowledge changes**  
-   Example: discovery that some form of reversible macroscopic execution is physically realizable.
-
-3. **Execution model changes categorically**  
-   Example: moving from real-time bounded agents to purely formal systems with no persistence.
-
-Changes to convenience, culture, governance, or optimization theory do **not** qualify.
-
-Core revision requires demonstrating:
-
-- that a foundational constraint no longer holds,
-- and that removing it does not reintroduce hidden constraints elsewhere.
-
-That bar is extremely high.
+Removing a Core constraint does not simplify the system.  
+It produces invisible assumptions that reappear elsewhere.
 
 ---
 
-# III. Layer 2 — Structural / Typing Constraints
+## When the Core Can Be Modified
+
+Core revision requires:
+
+1. A **change of scope** (e.g., no longer modeling bounded execution).
+2. A **physics-level update** that invalidates a primitive.
+3. A categorical change in what counts as execution.
+
+Convenience, ideology, or domain pressure do not qualify.
+
+Core revision requires explicit governance.
+
+---
+
+# III. Layer 2 — Structural / Typing Layer
 
 ## Definition
 
-The Structural Layer defines:
+The Structural Layer defines what counts as a **well-formed executional claim**.
 
-- which claims are well-formed,
-- which reasoning moves are admissible,
-- and in what order distinctions must be closed.
+It includes:
 
-This includes:
+- Executability boundaries
+- Viability gating before optimization
+- Closure / Degree-of-Freedom partition
+- Decidable boundaries
+- Responsibility typing via load tracing
+- Metric validity requirements
+- Regime → Kinematics → Dynamics → Optimization ordering
 
-- executability boundary,
-- viability gate,
-- closure / DOF partition,
-- decidability,
-- responsibility typing,
-- metric validity,
-- regime → kinematics → dynamics → optimization ordering.
-
-These are not physical laws.
-They are **well-formedness constraints induced by the Core**.
+This layer is a **static checker for discourse about action**.
 
 ---
 
-## Why This Layer Comes After the Core
+## Interface Contract: Core → Structural
 
-Typing rules exist because:
+The Structural Layer assumes:
 
-- abstraction is lossy,
-- time is irreversible,
-- horizons are bounded,
-- resources are finite.
+- Irreversibility exists.
+- Horizons exist.
+- Load propagates.
+- Resources are finite.
 
-If the Core changed, this layer would change accordingly.
+If these fail, typing rules must change.
 
-But while the Core stands, this layer is stable.
-
----
-
-## What This Layer Prevents
-
-It prevents:
-
-- horizon sliding,
-- optimization without viability,
-- agency laundering,
-- responsibility without load tracing,
-- narrative-only execution claims,
-- metric drift without failure.
-
-This is the “static checker” layer.
-
-It does not tell you what to do.  
-It tells you what you are allowed to claim.
+The Structural Layer cannot contradict the Core.
 
 ---
 
-# IV. Layer 3 — Control Constraints
+# IV. Layer 3 — Control Layer
 
 ## Definition
 
 The Control Layer addresses:
 
-- feedback loops,
-- stabilization mechanisms,
-- buffering,
-- error correction,
-- regulation,
-- system-level coordination.
+- Feedback loops
+- Stability under disturbance
+- Buffer management
+- Error correction
+- Regulation mechanisms
 
-Control theory enters here.
-
-This layer asks:
-
-- Given structural constraints, how do we maintain stability?
-- How do we bound variance?
-- How do we prevent runaway failure?
+This layer manages variance and drift under Core constraints.
 
 ---
 
-## When the Control Layer Becomes Relevant
+## Interface Contract: Structural → Control
 
-Control becomes necessary when:
+Control mechanisms must:
 
-- systems are load-bearing,
-- feedback exists,
-- error accumulates,
-- stability matters over time.
+- Respect closure decisions.
+- Operate within bounded resources.
+- Declare horizon assumptions.
+- Preserve redesign possibility where required.
 
-If a system is exploratory and non-load-bearing, control may be minimal.
-
-Control does not change the Core.  
-It operates within it.
+Control cannot invent new primitives that violate typing constraints.
 
 ---
 
-# V. Layer 4 — Cognitive Constraints
+# V. Layer 4 — Cognitive Layer
 
 ## Definition
 
-The Cognitive Layer concerns:
+The Cognitive Layer addresses:
 
-- representation limits,
-- prioritization heuristics,
-- bounded rationality,
-- discovery under effective infinity,
-- path dependence,
-- attention allocation.
+- Representation limits
+- Prioritized traversal
+- Bounded rationality
+- Path dependence
+- Exploration vs exploitation
+- Information compression strategies
 
-This layer is about how agents cope with the Core.
-
----
-
-## When the Cognitive Layer Is Activated
-
-Cognitive constraints matter when:
-
-- agents must explore,
-- information is incomplete,
-- state spaces are large,
-- representational compression is required.
-
-This layer does not override structural typing.
-It explains how agents behave under those constraints.
+This layer explains how agents cope with Core constraints.
 
 ---
 
-# VI. Layer 5 — Domain Constraints
+## Interface Contract: Control → Cognitive
+
+Cognitive models must:
+
+- Respect irreversibility.
+- Acknowledge resource limits.
+- Not assume exhaustive search in effectively infinite spaces.
+- Declare horizon assumptions explicitly.
+
+Cognitive heuristics cannot override structural typing.
+
+---
+
+# VI. Layer 5 — Domain Layer
 
 ## Definition
 
-Domain constraints include:
+The Domain Layer contains:
 
-- engineering standards,
-- regulatory regimes,
-- safety requirements,
-- institutional policies,
-- protocol specifications,
-- market rules.
+- Engineering standards
+- Protocol specifications
+- Institutional rules
+- Safety requirements
+- Robotics systems
+- Personal goal systems
+- Any application-specific constraint set
 
-These are:
+Domain constraints are:
 
-- context-specific,
-- historically contingent,
-- revisable.
+- Context-specific
+- Historically contingent
+- Revisable
 
-They sit above structural constraints.
-
----
-
-## When Domain Constraints Should Be Discussed
-
-Only after:
-
-- the Core is fixed,
-- typing is satisfied,
-- control feasibility is evaluated.
-
-Domain constraints answer:
-
-> Given the structural constraints, what additional restrictions do we impose for this context?
-
-They must not:
-
-- contradict the Core,
-- bypass typing rules,
-- erase horizon declarations,
-- eliminate refusal symmetry without admission.
+They are not foundational.
 
 ---
 
-# VII. Layer 6 — Normative / Goal Constraints
+## Interface Contract: Lower Layers → Domain
+
+Domain specifications must:
+
+- Declare horizons.
+- Identify load topology.
+- Respect viability gating.
+- Provide executable metrics.
+- Define refusal symmetry where agency is claimed.
+
+Domains may add constraints.  
+They may not erase lower-layer constraints.
+
+---
+
+# VII. Layer 6 — Normative / Goal Layer
 
 ## Definition
 
-Normative constraints specify:
+This layer specifies:
 
-- what outcomes are desired,
-- what trade-offs are acceptable,
-- what actions are forbidden,
-- what optimization targets exist.
+- Desired outcomes
+- Trade-offs
+- Forbidden actions
+- Optimization targets
 
-These are not structural.
-They are chosen.
-
----
-
-## Proper Position of Goals
-
-Goals enter only after:
-
-- viability is established,
-- closure is explicit,
-- metrics are executable,
-- refusal is decidable.
-
-Optimization without viability is ill-typed.
-Values without closure are narrative.
-
-Goals must never override Core constraints.
+These constraints are chosen, not derived.
 
 ---
 
-# VIII. How to Read the Stack
+## Interface Contract: Structural → Normative
 
-When evaluating a claim, move bottom-up:
+Goals must:
+
+- Respect viability.
+- Operate within declared horizons.
+- Not override irreversibility.
+- Not assume infinite resources.
+
+Optimization is admissible only after viability is established.
+
+---
+
+# VIII. Layer 7 — Stack Governance (Meta-Layer)
+
+## Definition
+
+Stack Governance governs:
+
+- When layers are modified
+- When constraints are added
+- When constraints are removed
+- When redesign escalates upward
+
+This layer is not operational.  
+It is epistemic governance.
+
+---
+
+## Governance Questions
+
+- What evidence invalidates a Core primitive?
+- What constitutes sufficient drift to retype a layer?
+- Who has authority to redefine closure?
+- When is redesign local vs structural?
+- How are interface contracts updated?
+
+Without governance, the stack ossifies or mutates silently.
+
+---
+
+# IX. Interface Contracts (Cross-Layer Discipline)
+
+Layer boundaries must declare:
+
+1. **Horizon Assumptions**
+2. **Resource Bounds**
+3. **Load Topology**
+4. **Closure Points**
+5. **Failure Semantics**
+6. **Redesign Entry Conditions**
+
+This prevents:
+
+- Hidden horizon sliding
+- Implicit resource subsidies
+- Narrative substitution for execution
+- Silent metric saturation
+- Responsibility laundering
+
+Interface contracts are the difference between layering and collapse.
+
+---
+
+# X. How to Read the Stack
+
+When evaluating a claim or system:
 
 1. **Core Check**  
    Does it respect boundedness, irreversibility, drift, topology?
 
 2. **Typing Check**  
-   Is the claim well-formed? Are horizons and closures declared?
+   Is the claim well-formed with declared horizons and closures?
 
 3. **Control Check**  
-   Are stability and feedback considered?
+   Are feedback and stability mechanisms coherent?
 
 4. **Cognitive Check**  
    Are representation limits acknowledged?
 
 5. **Domain Check**  
-   Are context-specific rules explicit?
+   Are application constraints explicit and compatible?
 
 6. **Normative Check**  
-   Are goals clearly separated from structural claims?
+   Are goals cleanly separated from structural claims?
 
-Skipping layers produces category errors.
+7. **Governance Check**  
+   Is any layer being silently revised?
 
----
-
-# IX. Why the Core Must Stay Stable
-
-The Core must remain stable because:
-
-- All higher reasoning depends on it.
-- Silent modifications corrupt typing.
-- Downstream systems become incoherent if foundational invariants shift unnoticed.
-
-A stable Core provides:
-
-- consistent evaluation,
-- redesign safety,
-- claim comparability across domains.
-
-It is the only part that must resist drift unless drift is fundamental.
+Skipping layers produces structural errors.
 
 ---
 
-# X. When Redesign Occurs
+# XI. Using This as Repository Structure
 
-Redesign can occur at any layer above the Core.
+This architecture maps cleanly to repository folders.
 
-Redesign of:
+Recommended layout:
 
-- domain rules is common,
-- control mechanisms is frequent,
-- cognitive heuristics is adaptive.
+constraint-architecture/  
+├── 0_core/  
+├── 1_structural/  
+├── 2_control/  
+├── 3_cognitive/  
+├── 4_domain/  
+│ ├── robotics/  
+│ ├── personal_goals/  
+│ └── future_domains/  
+├── 5_normative/  
+└── 6_governance/  
 
-Redesign of the Core requires:
 
-- new physics,
-- or exit from bounded execution scope.
+Each folder should:
 
-That is rare.
+- Explicitly state its layer.
+- Declare its interface contracts.
+- Reference lower layers.
+- Avoid redefining Core primitives.
+
+Domains can be extended or forked without destabilizing the stack.
 
 ---
 
-# XI. Compression
+# XII. Compression
 
-The architecture is hierarchical:
+This architecture separates:
 
-- The Core defines what execution cannot escape.
-- The Structural Layer defines what reasoning must respect.
-- The Control Layer stabilizes execution.
-- The Cognitive Layer explains traversal under constraint.
-- The Domain Layer specifies contextual rules.
-- The Normative Layer specifies goals.
+- What execution cannot escape (Core),
+- What reasoning must respect (Structural),
+- How systems stabilize (Control),
+- How agents traverse possibility space (Cognitive),
+- What context-specific rules apply (Domain),
+- What is desired (Normative),
+- How the structure itself evolves (Governance).
 
-Lower layers constrain higher ones.
-Higher layers cannot negate lower ones.
+Lower layers constrain higher layers.
+Higher layers cannot silently negate lower ones.
 
-This separation prevents:
+The Core remains stable unless physics changes.
 
-- invisible constraints,
-- category collapse,
-- moral leakage into physics,
-- optimization without viability,
-- responsibility without topology.
-
-The Core is stable because execution is stable.
-
-Everything else is adaptive.
+Everything else is adaptive — but only through declared interfaces and governed redesign.
