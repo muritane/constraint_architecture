@@ -1,34 +1,48 @@
 # Constraint Architecture for Bounded Execution
 
-A layered constraint framework for reasoning about action in bounded, irreversible, drifting systems.
+A layered constraint framework for reasoning about action in bounded, irreversible, drift-exposed systems.
 
-This repository defines:
+This repository defines a structured stack for analyzing:
 
-- A **minimal execution core**
-- A **static typing discipline** for executional claims
-- Layered separation of structural, control, cognitive, and domain constraints
-- A governance model for disciplined redesign
-- Applied mappings to robotics and long-horizon personal systems
+- What must be true for systems to execute,
+- When claims about execution are coherent,
+- How systems stabilize under disturbance,
+- How agents traverse possibility space under constraint,
+- How norms bind action space,
+- How authority modifies constraints,
+- And how strategic interaction unfolds without destroying viability.
 
-This is not a philosophy project.  
+This is not a philosophy project.
+
 It is an execution-grounded architecture.
 
 ---
 
 # Why This Exists
 
-Most frameworks about agency, optimization, responsibility, and coordination:
+Many frameworks about:
 
-- mix structural and normative claims,
-- assume infinite resources implicitly,
+- agency,
+- optimization,
+- leadership,
+- coordination,
+- responsibility,
+- institutional design,
+- strategy,
+
+fail structurally because they:
+
+- mix descriptive and normative claims,
+- assume infinite slack implicitly,
 - ignore irreversibility,
 - collapse topology into metaphor,
 - allow horizon sliding,
-- treat narrative as binding constraint.
+- treat narrative as binding constraint,
+- optimize locally while eroding long-term viability.
 
 This repository separates constraint classes explicitly.
 
-It provides a **static checker for discourse about execution**.
+It provides a **static checker for discourse about execution in real systems that must continue to run.**
 
 ---
 
@@ -38,6 +52,7 @@ It provides a **static checker for discourse about execution**.
 > Responsibility is undefined without load tracing.  
 > Agency is undefined without a decidable refusal boundary.  
 > Metrics are invalid unless they can fail explicitly.  
+> Strategy is undefined outside viability-preserving action space.  
 
 Everything else is interpretation.
 
@@ -47,23 +62,35 @@ Everything else is interpretation.
 
 The system is layered. Lower layers constrain higher ones.
 
-0_core/ → Physical execution invariants  
-1_structural/ → Typing discipline for executional claims  
-2_control/ → Stability and feedback under constraint  
-3_cognitive/ → Bounded traversal and representation limits  
-4_domain/ → Application-specific constraints (robotics, personal systems)  
-5_normative/ → Goal specification and optimization envelopes  
-6_governance/ → Rules for modifying the stack itself  
-
+```
+docs/
+  0_core/
+    execution_primitives.md
+  1_structural/
+    typing_discipline.md
+  2_control/
+    control_layer.md
+  3_cognitive/
+    cognitive_layer.md
+  4_domain/
+    robotics.md
+    personal_domain.md
+  5_normative/
+    normative_layer.md
+  6_governance/
+    governance_layer.md
+  7_strategic/
+    viability_constrained_game_theory.md
+```
 
 Each layer:
 
-- Declares its horizon assumptions
-- Identifies load topology
-- States closure points
-- Defines failure semantics
-- References lower layers
-- Does not contradict lower layers
+- Declares its assumptions,
+- Identifies its dependency layers,
+- States horizon scope,
+- Defines failure semantics,
+- Preserves viability precedence,
+- Does not contradict lower layers.
 
 ---
 
@@ -71,79 +98,81 @@ Each layer:
 
 ## 0 — Core
 
-Non-negotiable execution primitives:
+Defines execution primitives:
 
-- Bounded resources
+- Finite resources
 - Partial observability
 - Irreversibility
-- Unavoidable abstraction
+- Irreversible abstraction
 - Drift / non-stationarity
-- Horizon-bounded validity
-- Topological load propagation
+- Horizon boundedness
+- Topological structure
+- Consequence propagation
+- Structural viability
 
-These are structural properties of action in time.
-
-If these are invalid, the entire framework changes.
+If these are invalid, the entire stack changes.
 
 ---
 
-## 1 — Structural (Typing Layer)
+## 1 — Structural (Typing Discipline)
 
-Defines what counts as a well-formed executional claim:
+Defines what counts as a well-formed executional claim.
+
+Introduces:
 
 - Executability boundary
-- Viability gating
-- Closure and degree-of-freedom partition
-- Decidable agency boundaries
-- Responsibility via load tracing
+- Viability gate
+- Degree-of-freedom partition
+- Decidable agency boundary
+- Load-traceable responsibility
 - Metric validity constraints
-- Regime → kinematics → dynamics → optimization ordering
+- Three-valued typing (Well-Typed / Under-Typed / Ill-Typed)
 
-This layer behaves like a static type checker.
-
-It does not tell you what to do.
-It tells you when what you are saying could possibly be true.
+This layer behaves like a static type checker for execution discourse.
 
 ---
 
 ## 2 — Control
 
-Addresses:
+Defines how systems maintain stability under disturbance and drift.
+
+Covers:
 
 - Feedback loops
-- Stability under disturbance
 - Buffer management
-- Error correction
-- Variance bounding
+- Stability margins
+- Latency constraints
+- Control failure modes
+- Viability-blind optimization risks
 
-Operates within Core and Structural constraints.
+Control preserves viability; it does not select goals.
 
 ---
 
 ## 3 — Cognitive
 
-Addresses:
+Defines how bounded agents:
 
-- Bounded rationality
-- Exploration vs exploitation
-- Effective infinity
-- Path dependence
-- Irreversible abstraction in representation
+- Represent possibility space,
+- Traverse effective infinity,
+- Allocate attention,
+- Balance exploration and exploitation,
+- Commit irreversibly under drift.
 
-Explains how agents cope with the Core.
+Global optimality is rarely well-typed.
+
+Reachability dominates existence.
 
 ---
 
-## 4 — Domain
+## 4 — Domain Instantiations
 
-Application-specific instantiations.
+Applies the stack to embodied domains:
 
-Current focus:
+- Robotics (ROS/ROS2, control loops, hardware constraints)
+- Long-horizon personal systems (health, commitments, agency boundaries)
 
-- Robotics (ROS/ROS2, embodied systems, autonomy boundaries)
-- Long-horizon personal systems (discipline, optionality preservation, viability under drift)
-
-Other domains can be added or forked without modifying the Core.
+Other domains may be added without modifying lower layers.
 
 ---
 
@@ -151,14 +180,17 @@ Other domains can be added or forked without modifying the Core.
 
 Specifies:
 
-- Desired outcomes
-- Trade-offs
-- Optimization targets
-- Forbidden actions
+- Goals,
+- Trade-offs,
+- Prohibitions,
+- Legitimacy conditions,
+- Value constraints.
 
-Goals must respect viability and structural constraints.
+Norms restrict admissible action space.
 
-Optimization without a viability witness is ill-typed.
+They do not override physics.
+
+Optimization occurs only within normative constraints and viability bounds.
 
 ---
 
@@ -166,54 +198,66 @@ Optimization without a viability witness is ill-typed.
 
 Defines:
 
-- When constraints can be modified
-- What invalidates a primitive
-- What counts as sufficient evidence
-- How redesign escalates between layers
+- Authority over constraints,
+- Interface contracts between layers,
+- Redesign conditions,
+- Versioning rules,
+- Enforcement structures,
+- Stack integrity preservation.
 
-This prevents silent mutation of the stack.
+Governance allocates constraint-modification power.
 
----
-
-# Applied Focus
-
-## Robotics
-
-Robotics is a stress test for executional coherence:
-
-- Real-time horizons
-- Hard irreversibility
-- Physical load propagation
-- Safety-critical control loops
-- Explicit interface boundaries
-
-The robotics domain demonstrates how the abstract stack maps to embodied systems.
+It does not abolish execution primitives.
 
 ---
 
-## Personal Long-Horizon Systems
+## 7 — Strategic
 
-Long-horizon personal systems are treated as bounded executors:
+Embeds multi-agent interaction within bounded execution.
 
-- Finite time and energy
-- Irreversible commitments
-- Path-dependent traversal
-- Optionality management
-- Viability before optimization
+Introduces:
 
-This domain tests agency typing, redesign discipline, and horizon management.
+- Viability-constrained strategy space,
+- Horizon-declared equilibrium analysis,
+- Drift-robustness requirements,
+- Buffer-aware repeated interaction,
+- Load-aware mechanism design,
+- Equilibrium classification (viable / fragile / buffer-consuming / ill-typed).
+
+Game theory is not revised.
+
+It is constrained to remain execution-coherent.
+
+---
+
+# Design Invariants
+
+Across all layers:
+
+1. Viability precedes optimization.
+2. Irreversibility constrains trajectory.
+3. Drift invalidates stationary assumptions.
+4. Topology determines load routing.
+5. Metrics must fail explicitly.
+6. Power redistributes cost; it does not remove it.
+7. Horizon must be declared or inferable.
+8. Redesign pathways must remain accessible.
 
 ---
 
 # What This Repository Is Not
 
-- Not a moral framework
-- Not a productivity system
-- Not a political theory
-- Not a motivational doctrine
-- Not a general metaphysics
+It is not:
 
-It is a constraint discipline for bounded execution.
+- A moral doctrine
+- A political theory
+- A productivity system
+- A motivational philosophy
+- A universal metaphysics
+- A replacement for formal game theory
+- A control theory textbook
+
+It is a constraint discipline for systems that must execute under load.
 
 ---
 
@@ -222,24 +266,27 @@ It is a constraint discipline for bounded execution.
 1. Start at `0_core/`.
 2. Move upward layer by layer.
 3. Do not modify higher layers without checking lower ones.
-4. When applying to a domain:
-   - Declare horizon
-   - Identify topology
-   - Specify closure
-   - Define failure semantics
-   - Declare redesign conditions
+4. When analyzing a system:
+   - Declare horizon (H)
+   - Identify topology (T̂)
+   - Specify resource margins (R)
+   - Define viability conditions (V)
+   - Identify failure semantics
+   - Classify claims via typing discipline
+   - Evaluate strategy within viability-constrained action space
 
-If you skip a layer, you are likely making an ill-typed claim.
+If you skip a layer, you are likely making an under-typed or ill-typed claim.
 
 ---
 
 # Extension Policy
 
-- New domains go in `4_domain/`.
-- Structural changes require updating `1_structural/`.
-- Core changes require explicit governance discussion in `6_governance/`.
+- New domains belong in `4_domain/`.
+- New strategic models belong in `7_strategic/`.
+- Structural modifications require updating `1_structural/`.
+- Core changes require explicit governance revision in `6_governance/`.
 
-Core primitives should change only if physics-level constraints change.
+Core primitives change only if physical understanding changes.
 
 ---
 
@@ -250,11 +297,17 @@ This repository separates:
 - What execution cannot escape,
 - What reasoning must respect,
 - How systems stabilize,
-- How agents traverse possibility space,
-- What goals are pursued,
-- And how the architecture itself evolves.
+- How agents traverse,
+- What goals restrict action,
+- Who can modify constraints,
+- And how strategic interaction unfolds without destroying viability.
 
 Lower layers constrain higher ones.
 
 Everything above the Core is adaptive.
-The Core is stable unless reality itself changes.
+
+The Core remains stable unless reality itself changes.
+
+Execution is not optional.
+
+Systems that forget this collapse.
