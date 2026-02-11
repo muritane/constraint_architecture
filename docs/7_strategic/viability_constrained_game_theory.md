@@ -1,390 +1,435 @@
-# Viability-Constrained Game Theory  
-## Strategic Interaction Under Bounded, Irreversible, Drift-Exposed Execution
+# Strategic Interaction Under Finite Resources, Irreversibility, and Drift
+
+## A Typed Embedding of Game Theory in Bounded Execution Systems
 
 ---
 
 ## Status
 
-This document defines a constraint-consistent embedding of game-theoretic reasoning within the bounded execution stack.
+This document embeds strategic interaction within the bounded execution stack.
 
-It does not modify:
+It assumes:
 
-- Execution primitives
-- Structural typing discipline
-- Control layer
-- Cognitive layer
-- Normative layer
-- Governance layer
+* Execution Primitives (E1–E8)
+* Structural Typing Discipline
+* Control Layer
+* Cognitive Layer
+* Normative Layer
+* Governance Layer
 
-It constrains strategic analysis to remain coherent under:
+It does not modify game theory.
 
-- Finite resources
-- Partial observability
-- Irreversibility
-- Irreversible abstraction
-- Drift / non-stationarity
-- Horizon boundedness
-- Structured topology
-- Consequence propagation
-- Viability precedence
+It constrains strategic reasoning to remain:
 
-Game theory is not replaced.
+* Physically coherent,
+* Horizon-explicit,
+* Drift-aware,
+* Resource-bounded,
+* Constraint-consistent.
 
-It is typed.
+All strategic claims must type-check under bounded execution.
 
 ---
 
-## Dependencies
-
-This document depends on:
-
-- `0_core/execution_primitives.md`
-- `1_structural/typing_discipline.md`
-- `2_control/control_layer.md`
-- `3_cognitive/cognitive_layer.md`
-- `5_normative/normative_layer.md`
-- `6_governance/governance_layer.md`
-
-It extends the stack into multi-agent strategic interaction.
-
-It introduces no new primitives.
-
----
-
-# 1. Scope
-
-This framework applies when:
-
-- Multiple agents interact.
-- Outcomes depend on joint action.
-- Incentives shape behavior.
-- Actions are executed under bounded resources.
-- Systems must remain viable across time.
-
-It rejects:
-
-- Horizon-free optimality claims.
-- Stationary payoff assumptions without declaration.
-- Costless reversibility.
-- Infinite buffer assumptions.
-- Optimization claims without viability witness.
-
----
-
-# 2. Typing Environment for Strategic Claims
+# 1. Strategic Typing Environment
 
 All strategic analysis must declare:
 
-- **E** — Information structure (who observes what, with what latency)
-- **T̂** — Consequence topology (load routing, buffer location, authority)
-- **H** — Declared horizon
-- **R** — Resource bounds and current margins
-- **V** — Explicit viability conditions
+$$
+\mathcal{T}_S = (G, H, R, D, \Theta, \mathcal{N})
+$$
 
-Strategic claims without `(E, T̂, H, R, V)` are under-typed.
+Where:
 
----
+* $G$ — Topology of agents and load routing
+* $H$ — Finite horizon
+* $R$ — Resource vectors per agent
+* $D$ — Disturbance bound
+* $\Theta$ — Drift model
+* $\mathcal{N}$ — Normative admissibility constraints (optional)
 
-# 3. Agents Under Execution Constraints
-
-Agents are modeled as:
-
-- Resource-bounded (E1)
-- Partially informed (E2)
-- Irreversible in action (E3)
-- Representationally compressed (E4)
-- Drift-exposed (E5)
-- Horizon-limited (E6)
-
-Agents do not possess:
-
-- Infinite foresight
-- Infinite search capacity
-- Perfect payoff knowledge
-- Infinite slack
-
-Strategic reasoning must respect bounded cognition and execution cost.
+Strategic claims without these are under-typed.
 
 ---
 
-# 4. Viability Precedes Optimization
+# 2. Agents Under Physical Constraint
 
-## 4.1 Viability Definition
+Each agent $i$ has:
 
-A multi-agent system is viable over horizon H if:
+* State $x_i(t)$
+* Resource vector $R_i(t)$
+* Action set $A_i$
+* Information limits (E2)
+* Drift exposure
+* Irreversibility
 
-- Each participating locus retains execution capacity.
-- Critical buffers remain above collapse thresholds.
-- Adaptation pathways remain accessible.
-- Topology does not collapse into deadlock or destruction.
+Agent dynamics:
 
-Viability is structural, not moral.
+$$
+\dot{x}*i(t) = f_i(x_i, a_i, a*{-i}, d, \theta)
+$$
 
----
+Actions consume resources and alter topology.
 
-## 4.2 Viability Gate
+No agent has:
 
-Let:
+* Infinite foresight,
+* Infinite computation,
+* Infinite slack,
+* Perfect observability.
 
-```
-S = set of all possible joint strategies
-S_v ⊆ S = strategies preserving viability over H
-```
-
-Equilibrium analysis must be restricted to `S_v`.
-
-Strategies outside `S_v` are executionally invalid.
-
-Optimization over non-viable strategy space is ill-typed.
+All classical assumptions must be typed.
 
 ---
 
-# 5. Payoffs Under Resource and Topology Constraints
+# 3. Strategy Definition
 
-Classical payoff functions:
+A strategy for agent $i$:
 
-```
-u_i : S → ℝ
-```
+$$
+s_i : \hat{x}(t) \rightarrow a_i(t)
+$$
 
-Viability-constrained form:
+Where:
 
-```
-u_i : (S_v, T̂, R, H) → ℝ
-```
+* $\hat{x}(t)$ is compressed representation,
+* Mapping respects information limits,
+* Execution is irreversible.
 
-Payoffs must incorporate:
+Joint strategy profile:
 
-- Resource consumption
-- Buffer depletion
-- Drift exposure
-- Irreversibility cost
-- Topology-based load routing
+$$
+s = (s_1, ..., s_n)
+$$
 
-Short-term gains that erode long-horizon viability must be structurally penalized.
+Induces trajectory:
 
----
-
-# 6. Horizon Declaration
-
-All equilibrium claims must specify:
-
-- Evaluation horizon H
-- Discount structure (if applicable)
-- Drift assumptions
-- Redesign availability
-
-Stationary equilibrium claims without horizon declaration are under-typed.
-
-An equilibrium optimal over H₁ may destroy viability over H₂.
+$$
+\tau(s)
+$$
 
 ---
 
-# 7. Drift and Non-Stationarity
+# 4. Trajectory Safety Predicate
 
-Let:
+Safety (formerly “viability”) is defined as:
 
-```
-P_t = payoff structure at time t
-```
+$$
+V_i(H) := \forall t \in [0,H], \quad
+\begin{cases}
+r_{ij}(t) \ge \tau_{ij} \
+g_{ik}(x_i(t)) \le 0
+\end{cases}
+$$
+
+Each agent has:
+
+* Resource floors $\tau_{ij}$
+* State constraints $g_{ik}$
+
+Joint trajectory is safety-preserving if:
+
+$$
+V_i(H) \text{ holds } \forall i
+$$
+
+Safety is horizon-bound and measurable.
+
+---
+
+# 5. Admissible Strategy Set
+
+Let full strategy set:
+
+$$
+S
+$$
+
+Safety-restricted strategy set:
+
+$$
+S_V = { s \in S \mid V_i(H) \text{ holds } \forall i }
+$$
+
+Only strategies in $S_V$ are admissible.
+
+Optimization over $S \setminus S_V$ is ill-typed.
+
+---
+
+# 6. Payoff Functions Under Constraint
+
+Classical payoff:
+
+$$
+u_i : S \rightarrow \mathbb{R}
+$$
+
+Typed payoff:
+
+$$
+u_i : (S_V, H, R_i, \Theta) \rightarrow \mathbb{R}
+$$
+
+Payoff evaluation must:
+
+* Respect resource consumption,
+* Respect drift,
+* Be horizon-bound,
+* Be computable under $R_i$.
+
+Short-term payoff that violates safety predicate is invalid.
+
+---
+
+# 7. Horizon Declaration
+
+Equilibrium claims must specify:
+
+* Horizon $H$,
+* Discount factor (if used),
+* Drift bounds,
+* Resource budgets.
+
+Infinite-horizon equilibrium without finite implementability is under-typed.
+
+An equilibrium over $H_1$ may violate safety over $H_2$.
+
+---
+
+# 8. Drift and Regime Stability
+
+Let payoff structure evolve:
+
+$$
+P_t \neq P_{t+\Delta}
+$$
 
 Drift implies:
 
-```
-P_t ≠ P_(t+Δ)
-```
+* Incentives shift,
+* Resource availability changes,
+* Topology changes.
 
-Viable equilibria must either:
+A stable equilibrium must satisfy:
 
-- Remain robust under bounded drift, or
-- Declare regime boundaries and redesign triggers.
+$$
+V_i(H) \text{ under drift bound } D_\theta(H)
+$$
 
-Static Nash equilibrium is insufficient without drift robustness analysis.
-
----
-
-# 8. Irreversibility and Path Dependence
-
-Strategy execution:
-
-- Consumes resources
-- Alters reachable future states
-- Modifies topology
-- Changes payoff surfaces
-
-Thus:
-
-```
-Reachable(S_(t+1)) ⊂ Reachable(S_t)
-```
-
-Repeated games must be treated as trajectory processes, not reset games.
-
-Path dependence is structural.
+Static Nash equilibrium is insufficient if drift invalidates incentives.
 
 ---
 
-# 9. Equilibrium Classification
+# 9. Irreversibility and Path Dependence
 
-Under viability constraint, equilibria are classified as:
+Strategy execution reduces reachable state space:
 
-## 9.1 Viable Equilibrium
-Preserves execution capacity across H under bounded drift.
+$$
+\Omega_{t+1} \subseteq \Omega_t
+$$
 
-## 9.2 Fragile Equilibrium
-Stable under static assumptions but collapses under bounded drift.
+Repeated games are trajectory processes, not resets.
 
-## 9.3 Buffer-Consuming Equilibrium
-Maintains local stability while eroding resource margins.
+Reputation effects, capital depletion, and topology modification persist.
 
-## 9.4 Ill-Typed Equilibrium
-Violates execution primitives or ignores viability constraints.
-
-Classical Nash equilibrium may fall into any category.
+History cannot be erased without cost.
 
 ---
 
-# 10. Repeated Games Under Constraint
+# 10. Equilibrium Classification
 
-Repeated interaction requires:
-
-- Affordable retaliation
-- Drift-tolerant cooperation detection
-- Buffer capacity for punishment cycles
-- Explicit horizon compatibility
-
-Strategies such as tit-for-tat are viable only if:
-
-- Buffer ≥ retaliation cost
-- Misclassification risk is bounded
-- Drift does not destroy observability
-
-Otherwise, retaliation may be self-destructive.
+Within $S_V$, equilibria can be classified:
 
 ---
 
-# 11. Mechanism Design Under Viability Constraint
+## 10.1 Safety-Preserving Equilibrium
 
-Mechanisms must satisfy:
-
-1. Incentive compatibility  
-2. Resource feasibility  
-3. Drift tolerance  
-4. Load traceability  
-5. Explicit failure semantics  
-6. Redesign availability  
-
-Mechanisms producing equilibrium while eroding viability are structurally invalid.
+* All agents satisfy safety predicate.
+* Robust under declared disturbance bound.
+* Drift tolerance within horizon.
 
 ---
 
-# 12. Power and Load Redistribution
+## 10.2 Drift-Fragile Equilibrium
+
+* Stable under static parameters.
+* Violates safety under bounded drift.
+
+---
+
+## 10.3 Buffer-Consuming Equilibrium
+
+* Maintains short-term safety.
+* Depletes resource margins.
+* Violates extended horizon safety.
+
+---
+
+## 10.4 Ill-Typed Equilibrium
+
+* Ignores resource limits.
+* Assumes infinite horizon.
+* Violates safety predicate.
+* Assumes costless reversal.
+
+---
+
+# 11. Repeated Games Under Constraint
+
+Let game repeat $T$ times within $H$.
+
+Retaliation requires:
+
+* Available resource margin.
+* Observability of defection.
+* Bounded misclassification risk.
+
+Punishment cost:
+
+$$
+C_{punish}
+$$
+
+Feasible only if:
+
+$$
+C_{punish} \le \text{available buffer}
+$$
+
+Retaliation that violates safety predicate is self-destructive.
+
+Tit-for-tat requires:
+
+* Drift-tolerant detection,
+* Sufficient buffer,
+* Bounded noise.
+
+---
+
+# 12. Mechanism Design Under Constraint
+
+Mechanism $M$ must satisfy:
+
+1. Incentive compatibility.
+2. Resource feasibility.
+3. Safety preservation.
+4. Drift robustness.
+5. Load traceability.
+6. Explicit failure semantics.
+
+Mechanisms optimizing metric while eroding resource floor are invalid.
+
+---
+
+# 13. Power and Load Redistribution
 
 Strategic action can:
 
-- Shift buffer ownership
-- Reassign disturbance
-- Compress or extend horizons
-- Modify topology
+* Shift resource burden.
+* Alter topology.
+* Change horizon exposure.
+* Modify constraint thresholds.
 
-Power does not eliminate cost.
-
+Power does not remove cost.
 It redistributes it.
 
 Equilibrium analysis must specify:
 
-- Who absorbs disturbance
-- Where buffers saturate
-- What failure mode emerges
+* Who absorbs disturbance.
+* Where resource depletion accumulates.
+* Which constraints are tightened.
 
 ---
 
-# 13. Metrics in Strategic Systems
+# 14. Metric Vulnerability
 
-Metrics must:
+Metrics become strategic targets.
 
-- Be computable under resource bounds
-- Fail explicitly outside envelope
-- Remain robust under drift
+If metric $M$ is optimized:
 
-Goodhart dynamics arise when:
+* Agents may shift load to unmeasured dimensions.
+* Resource depletion may be hidden.
+* Constraint violation may be delayed.
 
-- Metrics become optimization targets
-- Failure semantics are suppressed
-- Proxy-target alignment drifts
+Metric validity requires:
 
-Equilibria based on invalid metrics are fragile.
+* Failure detection.
+* Drift awareness.
+* Resource coupling transparency.
+
+Goodhart effects are constraint-mismatch phenomena.
 
 ---
 
-# 14. Organizational Example Typing
+# 15. Organizational Examples
+
+---
 
 ## Promotion Systems
 
-Require declaration of:
+Must model:
 
-- Retention buffer
-- Cultural drift exposure
-- Horizon (multi-year)
-- Load redistribution topology
+* Skill development rate.
+* Retention buffer.
+* Cultural drift.
+* Resource replenishment rate.
 
-Zero-sum competition may be locally rational but buffer-consuming.
-
----
-
-## Firing Policies
-
-Bottom-decile policies must model:
-
-- Trust buffer
-- Sabotage incentives
-- Hiring pipeline capacity
-- Reputation drift
-
-If trust buffer is viability-critical, such equilibrium may be invalid.
+Zero-sum competition may be locally stable but globally buffer-consuming.
 
 ---
 
-## Metric Optimization
+## Termination Policies
 
-Conversion maximization without fraud topology modeling:
+Aggressive elimination strategy must model:
 
-- Violates consequence propagation awareness
-- Produces unstable equilibrium
-- Erodes long-horizon viability
+* Trust buffer.
+* Recruitment cost.
+* Institutional memory loss.
+* Reputation topology.
+
+If trust resource floor violated, equilibrium collapses.
 
 ---
 
-# 15. What This Framework Does Not Do
+# 16. What This Framework Does Not Do
 
 It does not:
 
-- Guarantee cooperation
-- Eliminate conflict
-- Replace classical equilibrium analysis
-- Remove incentive tensions
-- Override execution physics
+* Guarantee cooperation.
+* Eliminate conflict.
+* Replace classical solution concepts.
+* Define fairness.
 
-It constrains strategic reasoning to remain execution-coherent.
+It ensures:
 
----
-
-# 16. Summary
-
-Viability-Constrained Game Theory asserts:
-
-1. Strategy search must occur within viability-preserving action space.
-2. Optimization is undefined without survival margin.
-3. Drift invalidates stationary equilibrium assumptions.
-4. Irreversibility makes trajectory modeling essential.
-5. Power redistributes cost but does not remove it.
-6. Metrics must fail explicitly to remain valid.
-7. All equilibria are horizon-bound.
-
-Game theory predicts behavior within rules.
-
-This framework ensures:
-
-The rules do not destroy the system that plays the game.
+Strategic reasoning respects physical constraint and trajectory safety.
 
 ---
+
+# 17. Summary
+
+Strategic interaction in bounded systems requires:
+
+1. Explicit horizon.
+2. Resource floor declaration.
+3. Drift model.
+4. Disturbance bound.
+5. Typed admissible strategy set.
+6. Safety predicate enforcement.
+7. Topology-aware load routing.
+
+Equilibria must be:
+
+* Safety-preserving,
+* Horizon-declared,
+* Drift-aware,
+* Resource-feasible.
+
+Game theory remains valid.
+
+It is restricted to trajectories that do not destroy the system that plays the game.
+
+Optimization does not precede safety.
+
+Safety is a trajectory constraint, not a moral claim.
