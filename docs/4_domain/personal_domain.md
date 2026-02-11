@@ -11,8 +11,8 @@ This document instantiates the stack in a second concrete domain:
 
 It assumes:
 
-- `execution_primitives.md`
-- `typing_discipline.md`
+- `0_core/execution_primitives.md`
+- `1_structural/typing_discipline.md`
 - `2_control/control_layer.md`
 - `3_cognitive/cognitive_layer.md`
 
